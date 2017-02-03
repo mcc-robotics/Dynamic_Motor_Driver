@@ -1,0 +1,15 @@
+{
+  "name": "DRV8835",
+  "keywords": "drv8835, driver, motor, controller",
+  "description": "Library for the DRV8835 Dual Motor Driver",
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/mcc-robotics/DRV8835.git"
+  },
+  "frameworks": "arduino",
+  "platforms":
+  [
+    "teensy"
+  ]
+}
