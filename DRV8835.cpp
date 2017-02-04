@@ -8,7 +8,7 @@
 DRV8835::DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
     // Create motor objects
     motorA = new DRV8835Motor(motorA1, motorA2);
-    motorB = new DRV8835Motor(motorB1, motorB1);
+    motorB = new DRV8835Motor(motorB1, motorB2);
 }
 
 void DRV8835::setMotorASpeed(int8_t speed, uint8_t driveType) {
@@ -122,7 +122,7 @@ void DRV8835::setMotorBBrakeSpeed(int8_t speed) {
  */
 
 uint8_t DRV8835::convertSpeed(int8_t speed) {
-    return speed / 100 * _MAX_SPEED;
+    return (speed * _MAX_SPEED) / 100;
 }
 
 void DRV8835::motorABrake() {
@@ -152,44 +152,44 @@ DRV8835::DRV8835Motor::DRV8835Motor(uint8_t pin1, uint8_t pin2) {
 
     // Initialize the motors and turn them off
     pinMode(_pin1, OUTPUT);
-    digitalWrite(_pin1, LOW);
+    analogWrite(_pin1, LOW);
     pinMode(_pin2, OUTPUT);
-    digitalWrite(_pin2, LOW);
+    analogWrite(_pin2, LOW);
 
 }
 
 void DRV8835::DRV8835Motor::forwardBrake(uint8_t speed) {
     // Drive one pin with PWM and the other high
     analogWrite(_pin1, _MAX_SPEED - speed);
-    digitalWrite(_pin2, HIGH);
+    analogWrite(_pin2, _MAX_SPEED);
 }
 
 void DRV8835::DRV8835Motor::forwardCoast(uint8_t speed) {
     // Drive one pin with PWM and the other low
     analogWrite(_pin1, speed);
-    digitalWrite(_pin2, LOW);
+    analogWrite(_pin2, LOW);
 }
 
 void DRV8835::DRV8835Motor::reverseBrake(uint8_t speed) {
     // Drive one pin with PWM and the other high
-    digitalWrite(_pin1, HIGH);
+    analogWrite(_pin1, _MAX_SPEED);
     analogWrite(_pin2, _MAX_SPEED - speed);
 }
 
 void DRV8835::DRV8835Motor::reverseCoast(uint8_t speed) {
     // Drive one pin with PWM and the other low
-    digitalWrite(_pin1, LOW);
+    analogWrite(_pin1, LOW);
     analogWrite(_pin2, speed);
 }
 
 void DRV8835::DRV8835Motor::brake() {
     // Drive both pins high
-    digitalWrite(_pin1, HIGH);
-    digitalWrite(_pin2, HIGH);
+    analogWrite(_pin1, _MAX_SPEED);
+    analogWrite(_pin2, _MAX_SPEED);
 }
 
 void DRV8835::DRV8835Motor::coast() {
     // Drive both pins low
-    digitalWrite(_pin1, LOW);
-    digitalWrite(_pin2, LOW);
+    analogWrite(_pin1, LOW);
+    analogWrite(_pin2, LOW);
 }

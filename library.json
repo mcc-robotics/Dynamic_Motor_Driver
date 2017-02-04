@@ -10,6 +10,7 @@
   "frameworks": "arduino",
   "platforms":
   [
-    "teensy"
+    "teensy",
+    "atmelavr"
   ]
 }

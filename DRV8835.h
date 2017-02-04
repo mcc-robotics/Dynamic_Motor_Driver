@@ -112,7 +112,7 @@ private:
 
     DRV8835Motor *motorA;
     DRV8835Motor *motorB;
-    static uint8_t _MAX_SPEED = 255;
+    const static uint8_t _MAX_SPEED = 255;
 
 };
 
