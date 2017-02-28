@@ -104,6 +104,7 @@ private:
   PhaseEnableMotor *motorA;
   PhaseEnableMotor *motorB;
 #else
+  // TODO: Probably want PhaseEnable by default since it is probably slightly more common.
   InInMotor *motorA;
   InInMotor *motorB;
 #endif

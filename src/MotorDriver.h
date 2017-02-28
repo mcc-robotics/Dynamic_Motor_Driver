@@ -18,7 +18,7 @@ public:
    * @param speed     the percent of power to apply to the motor (-100 to +100)
    * @param driveType OPTIONAL drive type
    */
-  virtual void setMotorASpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE){}
+  virtual void setMotorASpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE) {}
 
   /**
    * Set the motor speed for motor A. You may optionally define a drive type of brake or coast. The drive type
@@ -26,29 +26,29 @@ public:
    * @param speed     the percent of power to apply to the motor (-100 to +100)
    * @param driveType OPTIONAL drive type
    */
-  virtual void setMotorBSpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE){}
+  virtual void setMotorBSpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE) {}
 
   /**
    * Stop both motors by braking, this will lock the wheels so there will be little to no movement while stopping.
    */
-  virtual void brakeAll(){}
+  virtual void brakeAll() {}
 
   /**
    * Stop both motors by coasting, this will allow the wheels to continue to spin but only with momentum.
    */
-  virtual void coastAll(){}
+  virtual void coastAll() {}
 
   /**
    * Stop a specific motor by braking the motor, little to no movement will occur with this type of stop
    * @param motor the motor you wish to brake (MOTOR_A or MOTOR_B)
    */
-  virtual void brake(uint8_t motor){}
+  virtual void brake(uint8_t motor) {}
 
   /**
    * Stop a specific motor by coasting the motor, some movement will occur with this type of stop but only from momentum
    * @param motor the motor you wish to stop and coast (MOTOR_A or MOTOR_B)
    */
-  virtual void coast(uint8_t motor){}
+  virtual void coast(uint8_t motor) {}
 
 protected:
 
