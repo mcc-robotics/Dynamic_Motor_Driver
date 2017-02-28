@@ -5,10 +5,7 @@
 #include <Arduino.h>
 #include <DRV8835Driver.h>
 
-#define IN_IN_MODE
-//#define PHASE_ENABLE_MODE
-
-DRV8835 driver(1, 2, 3, 4);
+DRV8835 driver(1, 2, 3, 4, IN_IN_MODE);
 
 void setup() {
 

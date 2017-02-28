@@ -5,101 +5,59 @@
 #ifndef DRV8835_H
 #define DRV8835_H
 
-#define BRAKE_DRIVE 0
-#define COAST_DRIVE 1
-#define MOTOR_A 0
-#define MOTOR_B 1
-
 #include <Arduino.h>
 #include "MotorDriver.h"
-#include "Motor.h"
-#include "InInMotor.h"
 
 class DRV8835 : public MotorDriver {
 
 public:
-  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2);
 
-  ~DRV8835() {
-    delete motorA;
-    delete motorB;
+  /**
+   * If calling this constructor the mode will default to In/In unless you have driven the mode pin HIGH on the chip.
+   * By default, the mode is driven low which is In/In mode, if you wish to use Phase/Enable use the constructor which
+   * specifically sets the drive mode.
+   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
+   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
+   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
+   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
+   */
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2)
+      : MotorDriver(motorA1, motorA2, motorB1, motorB2, IN_IN_MODE) { }
+
+  /**
+   * If calling this constructor the mode you specify must match that which you have defined by the circuitry. If you
+   * have not connected anything to the Mode pin on the chip or driven the Mode pin LOW then you should be passing in
+   * IN_IN_MODE. If you have driven the Mode pin HIGH you must specify PHASE_ENABLE_MODE
+   * The benefit of this constructor is that you don't need to lose a digital pin if you simply drive the voltage
+   * on the Mode pin physically.
+   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
+   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
+   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
+   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
+   */
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode)
+      : MotorDriver(motorA1, motorA2, motorB1, motorB2, mode) { }
+
+  /**
+   * The only functional difference the DRV8835 has over other drivers is that it has a drive mode pin to allow for
+   * two different drive modes in one unit
+   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
+   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
+   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
+   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
+   * @param mode_pin    the mode pin which controls the chip's drive mode
+   * @param mode    the desired drive mode
+   */
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode_pin, uint8_t mode)
+  : MotorDriver(motorA1, motorA2, motorB1, motorB2, mode) {
+    // The only difference here is we need to drive the mode pin to whichever mode the user chose
+    pinMode(mode_pin, OUTPUT);
+    if (mode == IN_IN_MODE) {
+      digitalWrite(mode_pin, LOW);
+    } else {
+      digitalWrite(mode_pin, HIGH);
+    }
   }
-
-  /*
-   * Functions that explicitly call out the motor
-   */
-
-  void setMotorACoastSpeed(int8_t speed);
-
-  void setMotorABrakeSpeed(int8_t speed);
-
-  void setMotorBCoastSpeed(int8_t speed);
-
-  void setMotorBBrakeSpeed(int8_t speed);
-
-  void motorABrake();
-
-  void motorACoast();
-
-  void motorBBrake();
-
-  void motorBCoast();
-
-  /**
-   * (Virtual Function)
-   * Set the motor speed for motor A. You may optionally define a drive type of brake or coast. The drive type
-   * is defaulted to brake in which an active brake will be applied to the motor to reduce coasting while moving
-   * @param speed     the percent of power to apply to the motor (-100 to +100)
-   * @param driveType OPTIONAL drive type
-   */
-  void setMotorASpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE);
-
-  /**
-   * (Virtual Function)
-   * Set the motor speed for motor A. You may optionally define a drive type of brake or coast. The drive type
-   * is defaulted to brake in which an active brake will be applied to the motor to reduce coasting while moving
-   * @param speed     the percent of power to apply to the motor (-100 to +100)
-   * @param driveType OPTIONAL drive type
-   */
-  void setMotorBSpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE);
-
-  /*
-   * Functions that control either motor, just pass in which one
-   */
-
-  void setCoastSpeed(int8_t speed, uint8_t motor);
-
-  void setBrakeSpeed(int8_t speed, uint8_t motor);
-
-  void brake(uint8_t motor);
-
-  void coast(uint8_t motor);
-
-  /*
-   * Functions to control both motors simultaneously
-   */
-
-  void setAllCoastSpeed(int8_t speed);
-
-  void setAllBrakeSpeed(int8_t speed);
-
-  /**
-   * (Virtual Function)
-   */
-  void brakeAll();
-
-  /**
-   * (Virtual Function)
-   */
-  void coastAll();
-
-private:
-
-  uint8_t convertSpeed(int8_t speed);
-
-  Motor *motorA;
-  Motor *motorB;
-
 };
 
 

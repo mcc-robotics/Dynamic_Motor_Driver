@@ -24,6 +24,8 @@
  * Motor A = Left motor
  * Motor B = Right motor
  * The pins here would map to AIN1, AIN2, BIN1, BIN2 respectively
+ * Also, note that this constructor requires that you have either driven Mode low on the chip or done nothing with it.
+ * If you have driven the mode HIGH you would use ```DRV8835 driver(3, 4, 5, 6, PHASE_ENABLE_MODE);```
  */
 DRV8835 driver(3, 4, 5, 6);
 
