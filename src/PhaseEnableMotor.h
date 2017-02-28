@@ -2,14 +2,17 @@
 // Created by gberl on 2/28/2017.
 //
 
-#ifndef ININMOTOR_H
-#define ININMOTOR_H
+#ifndef PHASEENABLEMOTOR_H
+#define PHASEENABLEMOTOR_H
 
 #include <Arduino.h>
 #include "Motor.h"
 
 class PhaseEnableMotor : public Motor {
 public:
+
+  PhaseEnableMotor(uint8_t pin1, uint8_t pin2)
+      : Motor(pin1, pin2) {}
 
   void forwardBrake(uint8_t speed);
 
@@ -26,4 +29,4 @@ public:
 };
 
 
-#endif // ININMOTOR_H
+#endif // PHASEENABLEMOTOR_H

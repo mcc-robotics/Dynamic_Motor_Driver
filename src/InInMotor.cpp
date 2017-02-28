@@ -4,11 +4,6 @@
 
 #include "InInMotor.h"
 
-InInMotor::InInMotor(uint8_t pin1, uint8_t pin2) {
-  // Initialize with the parent class
-  Motor::init(pin1, pin2);
-
-}
 
 void InInMotor::forwardBrake(uint8_t speed) {
   // Drive one pin with PWM and the other high

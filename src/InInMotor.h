@@ -10,7 +10,9 @@
 
 class InInMotor : public Motor {
 public:
-  InInMotor(uint8_t pin1, uint8_t pin2);
+
+  InInMotor(uint8_t pin1, uint8_t pin2)
+      : Motor(pin1, pin2) {}
 
   void forwardBrake(uint8_t speed);
 
