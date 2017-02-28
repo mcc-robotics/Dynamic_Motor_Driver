@@ -97,17 +97,8 @@ private:
 
   uint8_t convertSpeed(int8_t speed);
 
-#if defined(IN_IN_MODE)
-  InInMotor *motorA;
-  InInMotor *motorB;
-#elif defined(PHASE_ENABLE_MODE)
-  PhaseEnableMotor *motorA;
-  PhaseEnableMotor *motorB;
-#else
-  // TODO: Probably want PhaseEnable by default since it is probably slightly more common.
-  InInMotor *motorA;
-  InInMotor *motorB;
-#endif
+  Motor *motorA;
+  Motor *motorB;
 
 };
 
