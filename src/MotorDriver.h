@@ -5,6 +5,7 @@
 #ifndef MOTORDRIVER_H
 #define MOTORDRIVER_H
 
+#include <Arduino.h>
 #include "Motor.h"
 #include "InInMotor.h"
 #include "PhaseEnableMotor.h"

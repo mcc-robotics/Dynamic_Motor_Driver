@@ -6,6 +6,8 @@
 #define DRV8835_H
 
 #include <Arduino.h>
+
+#include <Arduino.h>
 #include "MotorDriver.h"
 
 class DRV8835 : public MotorDriver {
