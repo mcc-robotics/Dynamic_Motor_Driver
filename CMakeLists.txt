@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(DRV8835)
+project(MotorDriver)
 
 include(CMakeListsPrivate.txt)
 
@@ -51,6 +51,6 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-set(SRC_LIST DRV8835.cpp DRV8835.h MotorDriver.h)
+set(SRC_LIST src/main.cpp src/Motor.h src/InInMotor.cpp src/InInMotor.h src/MotorDriver.h src/DRV8835Driver.cpp src/DRV8835Driver.h)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
