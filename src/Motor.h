@@ -40,6 +40,8 @@ public:
 
   virtual void coast() {}
 
+  virtual ~Motor() {}
+
   const static uint8_t _MAX_SPEED = 255;
 
 protected:
