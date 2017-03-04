@@ -51,6 +51,9 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-set(SRC_LIST src/main.cpp src/Motor.h src/InInMotor.cpp src/InInMotor.h src/PhaseEnableMotor.cpp src/PhaseEnableMotor.h src/MotorDriver.h src/DRV8835Driver.h)
+set(SRC_LIST src/main.cpp src/MotorDriver.h src/DRV8835.h
+        src/HBridgeDriver.h src/InInDriver.cpp
+        src/InInDriver.h src/HBridgeDriver.cpp
+        src/PhaseEnableDriver.cpp src/PhaseEnableDriver.h src/L298.h)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})

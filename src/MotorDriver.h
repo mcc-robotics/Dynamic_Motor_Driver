@@ -6,9 +6,6 @@
 #define MOTORDRIVER_H
 
 #include <Arduino.h>
-#include "Motor.h"
-#include "InInMotor.h"
-#include "PhaseEnableMotor.h"
 
 #define BRAKE_DRIVE 0
 #define COAST_DRIVE 1
@@ -16,6 +13,12 @@
 #define PHASE_ENABLE_MODE 1
 #define MOTOR_A 0
 #define MOTOR_B 1
+
+struct MotorBean {
+  uint8_t _pin1 = 0;
+  uint8_t _pin2 = 0;
+  uint16_t _maxSpeed = 255;
+};
 
 class MotorDriver {
 
@@ -31,71 +34,34 @@ public:
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    * @param mode    the desired drive mode
    */
-  MotorDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t driveMode) {
-    if (driveMode == IN_IN_MODE) {
-      motorA = new InInMotor(motorA1, motorA2);
-      motorB = new InInMotor(motorB1, motorB2);
-    } else { // Default to phase enable since it's probably more common
-      motorA = new PhaseEnableMotor(motorA1, motorA2);
-      motorB = new PhaseEnableMotor(motorB1, motorB2);
-    }
+  MotorDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
+    motorA = new MotorBean();
+    motorB = new MotorBean();
+    motorA->_pin1 = motorA1;
+    motorA->_pin2 = motorA2;
+    motorB->_pin1 = motorB1;
+    motorB->_pin2 = motorB2;
   }
 
   /*
    * Functions that explicitly call out the motor
    */
 
-  void setMotorACoastSpeed(int8_t speed) {
-    // Call the appropriate forward or reverse method
-    if (speed < 0) {
-      motorA->reverseCoast(convertSpeed(speed * -1));
-    } else {
-      motorA->forwardCoast(convertSpeed(speed));
-    }
-  }
+  virtual void setMotorACoastSpeed(int8_t speed) {}
 
-  void setMotorABrakeSpeed(int8_t speed) {
-    // Call the appropriate forward or reverse method
-    if (speed < 0) {
-      motorA->reverseBrake(convertSpeed(speed * -1));
-    } else {
-      motorA->forwardBrake(convertSpeed(speed));
-    }
-  }
+  virtual void setMotorABrakeSpeed(int8_t speed) {}
 
-  void setMotorBCoastSpeed(int8_t speed) {
-    // Call the appropriate forward or reverse method
-    if (speed < 0) {
-      motorB->reverseCoast(convertSpeed(speed * -1));
-    } else {
-      motorA->forwardCoast(convertSpeed(speed));
-    }
-  }
+  virtual void setMotorBCoastSpeed(int8_t speed) {}
 
-  void setMotorBBrakeSpeed(int8_t speed) {
-    // Call the appropriate forward or reverse method
-    if (speed < 0) {
-      motorB->reverseBrake(convertSpeed(speed * -1));
-    } else {
-      motorB->forwardBrake(convertSpeed(speed));
-    }
-  }
+  virtual void setMotorBBrakeSpeed(int8_t speed) {}
 
-  void motorABrake() {
-    motorA->brake();
-  }
+  virtual void motorABrake() {}
 
-  void motorACoast() {
-    motorA->coast();
-  }
+  virtual void motorACoast() {}
 
-  void motorBBrake() {
-    motorB->brake();
-  }
+  virtual void motorBBrake() {}
 
-  void motorBCoast() {
-    motorB->coast();
-  }
+  virtual void motorBCoast() {}
 
   /**
  * Set the motor speed for motor A. You may optionally define a drive type of brake or coast. The drive type
@@ -151,9 +117,9 @@ public:
    */
   void brake(uint8_t motor) {
     if (motor == MOTOR_A) {
-      motorA->brake();
+      motorABrake();
     } else {
-      motorB->brake();
+      motorBBrake();
     }
   }
 
@@ -163,9 +129,9 @@ public:
    */
   void coast(uint8_t motor) {
     if (motor == MOTOR_A) {
-      motorA->coast();
+      motorACoast();
     } else {
-      motorB->coast();
+      motorBCoast();
     }
   }
 
@@ -187,16 +153,16 @@ public:
    * Stop both motors by braking, this will lock the wheels so there will be little to no movement while stopping.
    */
   void brakeAll() {
-    motorA->brake();
-    motorB->brake();
+    motorABrake();
+    motorBBrake();
   }
 
   /**
    * Stop both motors by coasting, this will allow the wheels to continue to spin but only with momentum.
    */
   void coastAll() {
-    motorA->coast();
-    motorB->coast();
+    motorACoast();
+    motorBCoast();
   }
 
   /**
@@ -209,20 +175,21 @@ public:
 
 protected:
 
-  // Give child classes access to motor objects by using protected
-  Motor *motorA;
-  Motor *motorB;
-
-private:
-
   /**
-   * Convert 0-100 speed to the speed range of the motor
+   * Utility function to convert a -100 to 100 speed to the actual speed range of the motor
    * @param speed
    * @return
    */
-  uint8_t convertSpeed(int8_t speed) {
-    return (speed * Motor::_MAX_SPEED) / 100;
+  int16_t convertSpeed(MotorBean *motor, int16_t speed) {
+    return (speed * motor->_maxSpeed) / 100;
   }
+
+  // Give child classes access to motor objects by using protected
+  MotorBean *motorA;
+  MotorBean *motorB;
+
+private:
+
 
 };
 
