@@ -49,7 +49,7 @@ void InInDriver::setMotorBBrakeSpeed(int8_t speed) {
   if (speed < 0) {
     // Drive one pin with PWM and the other high
     analogWrite(motorB->_pin1, motorB->_maxSpeed);
-    analogWrite(motorB->_pin2, convertSpeed(motorB, motorB->_maxSpeed - speed);
+    analogWrite(motorB->_pin2, convertSpeed(motorB, motorB->_maxSpeed - speed));
   } else {
     // Drive one pin with PWM and the other high
     analogWrite(motorB->_pin1, convertSpeed(motorB, motorB->_maxSpeed - speed));
