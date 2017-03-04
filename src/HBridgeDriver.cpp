@@ -10,12 +10,12 @@ void HBridgeDriver::setMotorACoastSpeed(int8_t speed) {
   if (speed < 0) {
     digitalWrite(motorA->_pin1, HIGH);
     digitalWrite(motorA->_pin2, LOW);
+    analogWrite(motorAEnable, convertSpeed(motorA, speed) * -1);
   } else {
     digitalWrite(motorA->_pin1, LOW);
     digitalWrite(motorA->_pin2, HIGH);
+    analogWrite(motorAEnable, convertSpeed(motorA, speed));
   }
-  // Set the speed
-  analogWrite(motorAEnable, convertSpeed(motorA, speed));
 }
 
 void HBridgeDriver::setMotorABrakeSpeed(int8_t speed) {
@@ -28,12 +28,12 @@ void HBridgeDriver::setMotorBCoastSpeed(int8_t speed) {
   if (speed < 0) {
     digitalWrite(motorB->_pin1, HIGH);
     digitalWrite(motorB->_pin2, LOW);
+    analogWrite(motorBEnable, convertSpeed(motorB, speed) * -1);
   } else {
     digitalWrite(motorB->_pin1, LOW);
     digitalWrite(motorB->_pin2, HIGH);
+    analogWrite(motorBEnable, convertSpeed(motorB, speed));
   }
-  // Set the speed
-  analogWrite(motorBEnable, convertSpeed(motorB, speed));
 }
 
 void HBridgeDriver::setMotorBBrakeSpeed(int8_t speed) {

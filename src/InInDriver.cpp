@@ -10,7 +10,7 @@ void InInDriver::setMotorACoastSpeed(int8_t speed) {
   if (speed < 0) {
     // Drive one pin with PWM and the other low
     analogWrite(motorA->_pin1, LOW);
-    analogWrite(motorA->_pin2, convertSpeed(motorA, speed));
+    analogWrite(motorA->_pin2, convertSpeed(motorA, speed) * -1);
   } else {
     // Drive one pin with PWM and the other low
     analogWrite(motorA->_pin1, convertSpeed(motorA, speed));
@@ -23,10 +23,10 @@ void InInDriver::setMotorABrakeSpeed(int8_t speed) {
   if (speed < 0) {
     // Drive one pin with PWM and the other high
     analogWrite(motorA->_pin1, motorA->_maxSpeed);
-    analogWrite(motorA->_pin2, convertSpeed(motorA, motorA->_maxSpeed - speed));
+    analogWrite(motorA->_pin2, motorA->_maxSpeed - (convertSpeed(motorA, speed) * -1));
   } else {
     // Drive one pin with PWM and the other high
-    analogWrite(motorA->_pin1, convertSpeed(motorA, motorA->_maxSpeed - speed));
+    analogWrite(motorA->_pin1, motorA->_maxSpeed - convertSpeed(motorA, speed));
     analogWrite(motorA->_pin2, motorA->_maxSpeed);
   }
 }
@@ -36,7 +36,7 @@ void InInDriver::setMotorBCoastSpeed(int8_t speed) {
   if (speed < 0) {
     // Drive one pin with PWM and the other low
     analogWrite(motorB->_pin1, LOW);
-    analogWrite(motorB->_pin2, convertSpeed(motorB, speed));
+    analogWrite(motorB->_pin2, convertSpeed(motorB, speed) * -1);
   } else {
     // Drive one pin with PWM and the other low
     analogWrite(motorB->_pin1, convertSpeed(motorB, speed));
@@ -49,10 +49,10 @@ void InInDriver::setMotorBBrakeSpeed(int8_t speed) {
   if (speed < 0) {
     // Drive one pin with PWM and the other high
     analogWrite(motorB->_pin1, motorB->_maxSpeed);
-    analogWrite(motorB->_pin2, convertSpeed(motorB, motorB->_maxSpeed - speed));
+    analogWrite(motorB->_pin2, motorB->_maxSpeed - convertSpeed(motorB, speed) * -1);
   } else {
     // Drive one pin with PWM and the other high
-    analogWrite(motorB->_pin1, convertSpeed(motorB, motorB->_maxSpeed - speed));
+    analogWrite(motorB->_pin1, motorB->_maxSpeed - convertSpeed(motorB, speed));
     analogWrite(motorB->_pin2, motorB->_maxSpeed);
   }
 }

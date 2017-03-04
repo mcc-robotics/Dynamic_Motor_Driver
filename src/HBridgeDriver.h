@@ -13,8 +13,17 @@ public:
 
   HBridgeDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorAEnable, uint8_t motorB1, uint8_t motorB2, uint8_t motorBEnable)
   : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
+
+    // Initialize variables
     HBridgeDriver::motorAEnable = motorAEnable;
     HBridgeDriver::motorBEnable = motorBEnable;
+
+    // Initialize pins in case it wasn't done before
+    pinMode(motorAEnable, OUTPUT);
+    pinMode(motorBEnable, OUTPUT);
+
+    // Turn off motors
+    MotorDriver::coastAll();
   }
 
   /*

@@ -14,7 +14,7 @@
 #define MOTOR_A 0
 #define MOTOR_B 1
 
-struct MotorBean {
+struct Motor {
   uint8_t _pin1 = 0;
   uint8_t _pin2 = 0;
   uint16_t _maxSpeed = 255;
@@ -35,12 +35,16 @@ public:
    * @param mode    the desired drive mode
    */
   MotorDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
-    motorA = new MotorBean();
-    motorB = new MotorBean();
+    motorA = new Motor();
+    motorB = new Motor();
     motorA->_pin1 = motorA1;
     motorA->_pin2 = motorA2;
     motorB->_pin1 = motorB1;
     motorB->_pin2 = motorB2;
+    pinMode(motorA1, OUTPUT);
+    pinMode(motorA2, OUTPUT);
+    pinMode(motorB1, OUTPUT);
+    pinMode(motorB2, OUTPUT);
   }
 
   /*
@@ -180,13 +184,13 @@ protected:
    * @param speed
    * @return
    */
-  int16_t convertSpeed(MotorBean *motor, int16_t speed) {
+  int16_t convertSpeed(Motor *motor, int16_t speed) {
     return (speed * motor->_maxSpeed) / 100;
   }
 
   // Give child classes access to motor objects by using protected
-  MotorBean *motorA;
-  MotorBean *motorB;
+  Motor *motorA;
+  Motor *motorB;
 
 private:
 
