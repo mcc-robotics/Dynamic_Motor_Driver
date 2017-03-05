@@ -11,7 +11,8 @@ class HBridgeDriver : public MotorDriver {
 
 public:
 
-  HBridgeDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorAEnable, uint8_t motorB1, uint8_t motorB2, uint8_t motorBEnable)
+  HBridgeDriver(unsigned char motorA1, unsigned char motorA2, unsigned char motorAEnable, unsigned char motorB1,
+                unsigned char motorB2, unsigned char motorBEnable)
   : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
 
     // Initialize variables
@@ -30,13 +31,13 @@ public:
    * These are all virtual functions inherited from MotorDriver
    */
 
-  void setMotorACoastSpeed(int8_t speed);
+  void setMotorACoastSpeed(char speed);
 
-  void setMotorABrakeSpeed(int8_t speed);
+  void setMotorABrakeSpeed(char speed);
 
-  void setMotorBCoastSpeed(int8_t speed);
+  void setMotorBCoastSpeed(char speed);
 
-  void setMotorBBrakeSpeed(int8_t speed);
+  void setMotorBBrakeSpeed(char speed);
 
   void motorABrake();
 
@@ -48,8 +49,8 @@ public:
 
 private:
 
-  uint8_t motorAEnable = 0;
-  uint8_t motorBEnable = 0;
+  unsigned char motorAEnable = 0;
+  unsigned char motorBEnable = 0;
 
 };
 

@@ -11,8 +11,8 @@
 class SN754410 : public HBridgeDriver {
 
 public:
-  SN754410(uint8_t motorA1, uint8_t motorA2, uint8_t motorAEnable, uint8_t motorB1, uint8_t motorB2,
-           uint8_t motorBEnable)
+  SN754410(unsigned char motorA1, unsigned char motorA2, unsigned char motorAEnable, unsigned char motorB1,
+           unsigned char motorB2, unsigned char motorBEnable)
       : HBridgeDriver(motorA1, motorA2, motorAEnable, motorB1, motorB2, motorBEnable) {}
 
 };

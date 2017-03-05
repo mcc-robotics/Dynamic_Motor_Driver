@@ -5,7 +5,7 @@
 #include "InInDriver.h"
 
 
-void InInDriver::setMotorACoastSpeed(int8_t speed) {
+void InInDriver::setMotorACoastSpeed(char speed) {
   MotorDriver::setMotorACoastSpeed(speed);
 
   // Call the appropriate forward or reverse method
@@ -20,7 +20,7 @@ void InInDriver::setMotorACoastSpeed(int8_t speed) {
   }
 }
 
-void InInDriver::setMotorABrakeSpeed(int8_t speed) {
+void InInDriver::setMotorABrakeSpeed(char speed) {
   MotorDriver::setMotorABrakeSpeed(speed);
 
   // Call the appropriate forward or reverse method
@@ -35,7 +35,7 @@ void InInDriver::setMotorABrakeSpeed(int8_t speed) {
   }
 }
 
-void InInDriver::setMotorBCoastSpeed(int8_t speed) {
+void InInDriver::setMotorBCoastSpeed(char speed) {
   MotorDriver::setMotorBCoastSpeed(speed);
 
   // Call the appropriate forward or reverse method
@@ -50,7 +50,7 @@ void InInDriver::setMotorBCoastSpeed(int8_t speed) {
   }
 }
 
-void InInDriver::setMotorBBrakeSpeed(int8_t speed) {
+void InInDriver::setMotorBBrakeSpeed(char speed) {
   MotorDriver::setMotorBBrakeSpeed(speed);
 
   // Call the appropriate forward or reverse method

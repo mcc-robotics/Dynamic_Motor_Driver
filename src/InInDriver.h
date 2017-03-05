@@ -11,20 +11,20 @@
 class InInDriver : public MotorDriver {
 
 public:
-  InInDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2)
+  InInDriver(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2)
       : MotorDriver(motorA1, motorA2, motorB1, motorB2) {}
 
   /*
    * These are all virtual functions inherited from MotorDriver
    */
 
-  void setMotorACoastSpeed(int8_t speed);
+  void setMotorACoastSpeed(char speed);
 
-  void setMotorABrakeSpeed(int8_t speed);
+  void setMotorABrakeSpeed(char speed);
 
-  void setMotorBCoastSpeed(int8_t speed);
+  void setMotorBCoastSpeed(char speed);
 
-  void setMotorBBrakeSpeed(int8_t speed);
+  void setMotorBBrakeSpeed(char speed);
 
   void motorABrake();
 

@@ -6,6 +6,7 @@
 #define MOTORDRIVER_H
 
 #include <Arduino.h>
+#include "Motor.h"
 
 #define BRAKE_DRIVE 0
 #define COAST_DRIVE 1
@@ -13,13 +14,6 @@
 #define PHASE_ENABLE_MODE 1
 #define MOTOR_A 0
 #define MOTOR_B 1
-
-struct Motor {
-  uint8_t _pin1 = 0;
-  uint8_t _pin2 = 0;
-  int16_t currentSpeed = 0;
-  uint16_t _maxSpeed = 255;
-};
 
 class MotorDriver {
 
@@ -35,7 +29,7 @@ public:
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    * @param mode    the desired drive mode
    */
-  MotorDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
+  MotorDriver(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2) {
     motorA = new Motor();
     motorB = new Motor();
     motorA->_pin1 = motorA1;
@@ -52,36 +46,36 @@ public:
    * Functions that explicitly call out the motor
    */
 
-  virtual void setMotorACoastSpeed(int8_t speed) {
-    MotorDriver::motorA->currentSpeed = speed;
+  virtual void setMotorACoastSpeed(char speed) {
+    MotorDriver::motorA->_currentPercentSpeed = speed;
   }
 
-  virtual void setMotorABrakeSpeed(int8_t speed) {
-    MotorDriver::motorA->currentSpeed = speed;
+  virtual void setMotorABrakeSpeed(char speed) {
+    MotorDriver::motorA->_currentPercentSpeed = speed;
   }
 
-  virtual void setMotorBCoastSpeed(int8_t speed) {
-    MotorDriver::motorB->currentSpeed = speed;
+  virtual void setMotorBCoastSpeed(char speed) {
+    MotorDriver::motorB->_currentPercentSpeed = speed;
   }
 
-  virtual void setMotorBBrakeSpeed(int8_t speed) {
-    MotorDriver::motorB->currentSpeed = speed;
+  virtual void setMotorBBrakeSpeed(char speed) {
+    MotorDriver::motorB->_currentPercentSpeed = speed;
   }
 
   virtual void motorABrake() {
-    MotorDriver::motorA->currentSpeed = 0;
+    MotorDriver::motorA->_currentPercentSpeed = 0;
   }
 
   virtual void motorACoast() {
-    MotorDriver::motorA->currentSpeed = 0;
+    MotorDriver::motorA->_currentPercentSpeed = 0;
   }
 
   virtual void motorBBrake() {
-    MotorDriver::motorB->currentSpeed = 0;
+    MotorDriver::motorB->_currentPercentSpeed = 0;
   }
 
   virtual void motorBCoast() {
-    MotorDriver::motorB->currentSpeed = 0;
+    MotorDriver::motorB->_currentPercentSpeed = 0;
   }
 
   /**
@@ -90,7 +84,7 @@ public:
  * @param speed     the percent of power to apply to the motor (-100 to +100)
  * @param driveType OPTIONAL drive type
  */
-  void setMotorASpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE) {
+  void setMotorASpeed(char speed, unsigned char driveType = BRAKE_DRIVE) {
     if (driveType == COAST_DRIVE) {
       setMotorACoastSpeed(speed);
     } else {
@@ -104,7 +98,7 @@ public:
    * @param speed     the percent of power to apply to the motor (-100 to +100)
    * @param driveType OPTIONAL drive type
    */
-  void setMotorBSpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE) {
+  void setMotorBSpeed(char speed, unsigned char driveType = BRAKE_DRIVE) {
     if (driveType == COAST_DRIVE) {
       setMotorBCoastSpeed(speed);
     } else {
@@ -116,7 +110,7 @@ public:
    * Functions that control either motor, just pass in which one
    */
 
-  void setCoastSpeed(int8_t speed, uint8_t motor) {
+  void setCoastSpeed(char speed, unsigned char motor) {
     if (motor == MOTOR_A) {
       setMotorACoastSpeed(speed);
     } else {
@@ -124,7 +118,7 @@ public:
     }
   }
 
-  void setBrakeSpeed(int8_t speed, uint8_t motor) {
+  void setBrakeSpeed(char speed, unsigned char motor) {
     if (motor == MOTOR_A) {
       setMotorABrakeSpeed(speed);
     } else {
@@ -136,7 +130,7 @@ public:
    * Stop a specific motor by braking the motor, little to no movement will occur with this type of stop
    * @param motor the motor you wish to brake (MOTOR_A or MOTOR_B)
    */
-  void brake(uint8_t motor) {
+  void brake(unsigned char motor) {
     if (motor == MOTOR_A) {
       motorABrake();
     } else {
@@ -148,7 +142,7 @@ public:
    * Stop a specific motor by coasting the motor, some movement will occur with this type of stop but only from momentum
    * @param motor the motor you wish to stop and coast (MOTOR_A or MOTOR_B)
    */
-  void coast(uint8_t motor) {
+  void coast(unsigned char motor) {
     if (motor == MOTOR_A) {
       motorACoast();
     } else {
@@ -160,12 +154,12 @@ public:
    * Functions to control both motors simultaneously
    */
 
-  void setAllCoastSpeed(int8_t speed) {
+  void setAllCoastSpeed(char speed) {
     setMotorACoastSpeed(speed);
     setMotorBCoastSpeed(speed);
   }
 
-  void setAllBrakeSpeed(int8_t speed) {
+  void setAllBrakeSpeed(char speed) {
     setMotorABrakeSpeed(speed);
     setMotorBBrakeSpeed(speed);
   }
@@ -186,12 +180,12 @@ public:
     motorBCoast();
   }
 
-  int16_t getMotorASpeed() {
-    return motorA->currentSpeed;
+  char getMotorAPercentageSpeed() {
+    return motorA->_currentPercentSpeed;
   }
 
-  int16_t getMotorBSpeed() {
-    return motorB->currentSpeed;
+  char getMotorBPercentageSpeed() {
+    return motorB->_currentPercentSpeed;
   }
 
   /**

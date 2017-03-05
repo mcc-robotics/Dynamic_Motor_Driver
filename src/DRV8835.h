@@ -29,7 +29,7 @@ public:
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    */
-  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2)
+  DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2)
       : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
     driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
   }
@@ -45,7 +45,8 @@ public:
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    */
-  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode)
+  DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2,
+          unsigned char mode)
       : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
     if (mode == IN_IN_MODE) {
       driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
@@ -64,7 +65,8 @@ public:
    * @param mode_pin    the mode pin which controls the chip's drive mode
    * @param mode    the desired drive mode
    */
-  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode_pin, uint8_t mode)
+  DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2,
+          unsigned char mode_pin, unsigned char mode)
       : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
     // The only difference here is we need to drive the mode pin to whichever mode the user chose
     pinMode(mode_pin, OUTPUT);
@@ -81,22 +83,22 @@ public:
    * These are all virtual functions inherited from MotorDriver
    */
 
-  void setMotorACoastSpeed(int8_t speed) {
+  void setMotorACoastSpeed(char speed) {
     // Simply call the strategy function
     driveStrategy->setMotorACoastSpeed(speed);
   }
 
-  void setMotorABrakeSpeed(int8_t speed) {
+  void setMotorABrakeSpeed(char speed) {
     // Simply call the strategy function
     driveStrategy->setMotorABrakeSpeed(speed);
   }
 
-  void setMotorBCoastSpeed(int8_t speed) {
+  void setMotorBCoastSpeed(char speed) {
     // Simply call the strategy function
     driveStrategy->setMotorBCoastSpeed(speed);
   }
 
-  void setMotorBBrakeSpeed(int8_t speed) {
+  void setMotorBBrakeSpeed(char speed) {
     // Simply call the strategy function
     driveStrategy->setMotorBBrakeSpeed(speed);
   }

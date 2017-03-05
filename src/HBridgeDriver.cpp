@@ -4,7 +4,7 @@
 
 #include "HBridgeDriver.h"
 
-void HBridgeDriver::setMotorACoastSpeed(int8_t speed) {
+void HBridgeDriver::setMotorACoastSpeed(char speed) {
   MotorDriver::setMotorACoastSpeed(speed);
 
   // Set the direction
@@ -19,12 +19,12 @@ void HBridgeDriver::setMotorACoastSpeed(int8_t speed) {
   }
 }
 
-void HBridgeDriver::setMotorABrakeSpeed(int8_t speed) {
+void HBridgeDriver::setMotorABrakeSpeed(char speed) {
   // HBridge doesn't support brake
   setMotorACoastSpeed(speed);
 }
 
-void HBridgeDriver::setMotorBCoastSpeed(int8_t speed) {
+void HBridgeDriver::setMotorBCoastSpeed(char speed) {
   MotorDriver::setMotorBCoastSpeed(speed);
 
   // Set the direction
@@ -39,7 +39,7 @@ void HBridgeDriver::setMotorBCoastSpeed(int8_t speed) {
   }
 }
 
-void HBridgeDriver::setMotorBBrakeSpeed(int8_t speed) {
+void HBridgeDriver::setMotorBBrakeSpeed(char speed) {
   // HBridge doesn't support brake
   setMotorBCoastSpeed(speed);
 }

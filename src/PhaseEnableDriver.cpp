@@ -4,12 +4,12 @@
 
 #include "PhaseEnableDriver.h"
 
-void PhaseEnableDriver::setMotorACoastSpeed(int8_t speed) {
+void PhaseEnableDriver::setMotorACoastSpeed(char speed) {
   // Phase enable doesn't support coast
   setMotorABrakeSpeed(speed);
 }
 
-void PhaseEnableDriver::setMotorABrakeSpeed(int8_t speed) {
+void PhaseEnableDriver::setMotorABrakeSpeed(char speed) {
   MotorDriver::setMotorABrakeSpeed(speed);
 
   if (speed < 0){
@@ -23,12 +23,12 @@ void PhaseEnableDriver::setMotorABrakeSpeed(int8_t speed) {
   }
 }
 
-void PhaseEnableDriver::setMotorBCoastSpeed(int8_t speed) {
+void PhaseEnableDriver::setMotorBCoastSpeed(char speed) {
   // Phase enable doesn't support coast
   setMotorBBrakeSpeed(speed);
 }
 
-void PhaseEnableDriver::setMotorBBrakeSpeed(int8_t speed) {
+void PhaseEnableDriver::setMotorBBrakeSpeed(char speed) {
   MotorDriver::setMotorBBrakeSpeed(speed);
 
   if (speed < 0){
