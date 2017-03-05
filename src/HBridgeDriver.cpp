@@ -25,6 +25,8 @@ void HBridgeDriver::setMotorABrakeSpeed(int8_t speed) {
 }
 
 void HBridgeDriver::setMotorBCoastSpeed(int8_t speed) {
+  MotorDriver::setMotorBCoastSpeed(speed);
+
   // Set the direction
   if (speed < 0) {
     digitalWrite(motorB->_pin1, HIGH);
