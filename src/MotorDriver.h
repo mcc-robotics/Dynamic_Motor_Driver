@@ -30,16 +30,8 @@ public:
    * @param mode    the desired drive mode
    */
   MotorDriver(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2) {
-    motorA = new Motor();
-    motorB = new Motor();
-    motorA->_pin1 = motorA1;
-    motorA->_pin2 = motorA2;
-    motorB->_pin1 = motorB1;
-    motorB->_pin2 = motorB2;
-    pinMode(motorA1, OUTPUT);
-    pinMode(motorA2, OUTPUT);
-    pinMode(motorB1, OUTPUT);
-    pinMode(motorB2, OUTPUT);
+    motorA = new Motor(motorA1, motorA2);
+    motorB = new Motor(motorB1, motorB2);
   }
 
   /*
@@ -47,35 +39,35 @@ public:
    */
 
   virtual void setMotorACoastSpeed(char speed) {
-    MotorDriver::motorA->_currentPercentSpeed = speed;
+    motorA->setCurrentPercentageSpeed(speed);
   }
 
   virtual void setMotorABrakeSpeed(char speed) {
-    MotorDriver::motorA->_currentPercentSpeed = speed;
+    motorA->setCurrentPercentageSpeed(speed);
   }
 
   virtual void setMotorBCoastSpeed(char speed) {
-    MotorDriver::motorB->_currentPercentSpeed = speed;
+    motorB->setCurrentPercentageSpeed(speed);
   }
 
   virtual void setMotorBBrakeSpeed(char speed) {
-    MotorDriver::motorB->_currentPercentSpeed = speed;
+    motorB->setCurrentPercentageSpeed(speed);
   }
 
   virtual void motorABrake() {
-    MotorDriver::motorA->_currentPercentSpeed = 0;
+    motorA->setCurrentPercentageSpeed(0);
   }
 
   virtual void motorACoast() {
-    MotorDriver::motorA->_currentPercentSpeed = 0;
+    motorA->setCurrentPercentageSpeed(0);
   }
 
   virtual void motorBBrake() {
-    MotorDriver::motorB->_currentPercentSpeed = 0;
+    motorB->setCurrentPercentageSpeed(0);
   }
 
   virtual void motorBCoast() {
-    MotorDriver::motorB->_currentPercentSpeed = 0;
+    motorB->setCurrentPercentageSpeed(0);
   }
 
   /**
@@ -181,11 +173,11 @@ public:
   }
 
   char getMotorAPercentageSpeed() {
-    return motorA->_currentPercentSpeed;
+    return motorA->getCurrentPercentageSpeed();
   }
 
   char getMotorBPercentageSpeed() {
-    return motorB->_currentPercentSpeed;
+    return motorB->getCurrentPercentageSpeed();
   }
 
   /**
@@ -204,7 +196,7 @@ protected:
    * @return
    */
   int16_t convertSpeed(Motor *motor, int16_t speed) {
-    return (speed * motor->_maxSpeed) / 100;
+    return (speed * motor->getMaxSpeed()) / 100;
   }
 
   // Give child classes access to motor objects by using protected

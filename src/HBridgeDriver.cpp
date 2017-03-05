@@ -9,12 +9,12 @@ void HBridgeDriver::setMotorACoastSpeed(char speed) {
 
   // Set the direction
   if (speed < 0) {
-    digitalWrite(motorA->_pin1, HIGH);
-    digitalWrite(motorA->_pin2, LOW);
+    digitalWrite(motorA->getPin1(), HIGH);
+    digitalWrite(motorA->getPin2(), LOW);
     analogWrite(motorAEnable, convertSpeed(motorA, speed) * -1);
   } else {
-    digitalWrite(motorA->_pin1, LOW);
-    digitalWrite(motorA->_pin2, HIGH);
+    digitalWrite(motorA->getPin1(), LOW);
+    digitalWrite(motorA->getPin2(), HIGH);
     analogWrite(motorAEnable, convertSpeed(motorA, speed));
   }
 }
@@ -29,12 +29,12 @@ void HBridgeDriver::setMotorBCoastSpeed(char speed) {
 
   // Set the direction
   if (speed < 0) {
-    digitalWrite(motorB->_pin1, HIGH);
-    digitalWrite(motorB->_pin2, LOW);
+    digitalWrite(motorB->getPin1(), HIGH);
+    digitalWrite(motorB->getPin2(), LOW);
     analogWrite(motorBEnable, convertSpeed(motorB, speed) * -1);
   } else {
-    digitalWrite(motorB->_pin1, LOW);
-    digitalWrite(motorB->_pin2, HIGH);
+    digitalWrite(motorB->getPin1(), LOW);
+    digitalWrite(motorB->getPin2(), HIGH);
     analogWrite(motorBEnable, convertSpeed(motorB, speed));
   }
 }
@@ -48,8 +48,8 @@ void HBridgeDriver::motorABrake() {
   MotorDriver::motorABrake();
 
   // Brake requires both inputs to be equal so we'll set them to low
-  digitalWrite(motorA->_pin1, LOW);
-  digitalWrite(motorA->_pin2, LOW);
+  digitalWrite(motorA->getPin1(), LOW);
+  digitalWrite(motorA->getPin2(), LOW);
 
   // Enable pin doesn't matter
 }
@@ -65,8 +65,8 @@ void HBridgeDriver::motorBBrake() {
   MotorDriver::motorBBrake();
 
   // Brake requires both inputs to be equal so we'll set them to low
-  digitalWrite(motorB->_pin1, LOW);
-  digitalWrite(motorB->_pin2, LOW);
+  digitalWrite(motorB->getPin1(), LOW);
+  digitalWrite(motorB->getPin2(), LOW);
 
   // Enable pin doesn't matter
 }

@@ -14,12 +14,12 @@ void PhaseEnableDriver::setMotorABrakeSpeed(char speed) {
 
   if (speed < 0){
     // Drive phase high and enable PWM at specified speed
-    digitalWrite(motorA->_pin1, HIGH);
-    analogWrite(motorA->_pin2, convertSpeed(motorA, speed) * -1);
+    digitalWrite(motorA->getPin1(), HIGH);
+    analogWrite(motorA->getPin2(), convertSpeed(motorA, speed) * -1);
   } else {
     // Drive phase low and enable PWM at specified speed
-    digitalWrite(motorA->_pin1, LOW);
-    analogWrite(motorA->_pin2, convertSpeed(motorA, speed));
+    digitalWrite(motorA->getPin1(), LOW);
+    analogWrite(motorA->getPin2(), convertSpeed(motorA, speed));
   }
 }
 
@@ -33,12 +33,12 @@ void PhaseEnableDriver::setMotorBBrakeSpeed(char speed) {
 
   if (speed < 0){
     // Drive phase high and enable PWM at specified speed
-    digitalWrite(motorB->_pin1, HIGH);
-    analogWrite(motorB->_pin2, convertSpeed(motorB, speed) * -1);
+    digitalWrite(motorB->getPin1(), HIGH);
+    analogWrite(motorB->getPin2(), convertSpeed(motorB, speed) * -1);
   } else {
     // Drive phase low and enable PWM at specified speed
-    digitalWrite(motorB->_pin1, LOW);
-    analogWrite(motorB->_pin2, convertSpeed(motorB, speed));
+    digitalWrite(motorB->getPin1(), LOW);
+    analogWrite(motorB->getPin2(), convertSpeed(motorB, speed));
   }
 }
 
@@ -46,7 +46,7 @@ void PhaseEnableDriver::motorABrake() {
   MotorDriver::motorABrake();
 
   // Drive Enable low (stop PWM) (phase is irrelevant)
-  analogWrite(motorA->_pin2, 0);
+  analogWrite(motorA->getPin2(), 0);
 }
 
 void PhaseEnableDriver::motorACoast() {
@@ -58,7 +58,7 @@ void PhaseEnableDriver::motorBBrake() {
   MotorDriver::motorBBrake();
 
   // Drive Enable low (stop PWM) (phase is irrelevant)
-  analogWrite(motorB->_pin2, 0);
+  analogWrite(motorB->getPin2(), 0);
 }
 
 void PhaseEnableDriver::motorBCoast() {
