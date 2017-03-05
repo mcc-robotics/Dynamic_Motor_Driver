@@ -17,6 +17,7 @@
 struct Motor {
   uint8_t _pin1 = 0;
   uint8_t _pin2 = 0;
+  int16_t currentSpeed = 0;
   uint16_t _maxSpeed = 255;
 };
 
@@ -52,35 +53,35 @@ public:
    */
 
   virtual void setMotorACoastSpeed(int8_t speed) {
-    MotorDriver::currentSpeed = speed;
+    MotorDriver::motorA->currentSpeed = speed;
   }
 
   virtual void setMotorABrakeSpeed(int8_t speed) {
-    MotorDriver::currentSpeed = speed;
+    MotorDriver::motorA->currentSpeed = speed;
   }
 
   virtual void setMotorBCoastSpeed(int8_t speed) {
-    MotorDriver::currentSpeed = speed;
+    MotorDriver::motorB->currentSpeed = speed;
   }
 
   virtual void setMotorBBrakeSpeed(int8_t speed) {
-    MotorDriver::currentSpeed = speed;
+    MotorDriver::motorB->currentSpeed = speed;
   }
 
   virtual void motorABrake() {
-    MotorDriver::currentSpeed = 0;
+    MotorDriver::motorA->currentSpeed = 0;
   }
 
   virtual void motorACoast() {
-    MotorDriver::currentSpeed = 0;
+    MotorDriver::motorA->currentSpeed = 0;
   }
 
   virtual void motorBBrake() {
-    MotorDriver::currentSpeed = 0;
+    MotorDriver::motorB->currentSpeed = 0;
   }
 
   virtual void motorBCoast() {
-    MotorDriver::currentSpeed = 0;
+    MotorDriver::motorB->currentSpeed = 0;
   }
 
   /**
@@ -185,8 +186,12 @@ public:
     motorBCoast();
   }
 
-  int16_t getCurrentSpeed() {
-    return currentSpeed;
+  int16_t getMotorASpeed() {
+    return motorA->currentSpeed;
+  }
+
+  int16_t getMotorBSpeed() {
+    return motorB->currentSpeed;
   }
 
   /**
@@ -211,7 +216,6 @@ protected:
   // Give child classes access to motor objects by using protected
   Motor *motorA;
   Motor *motorB;
-  int16_t currentSpeed = 0;
 
 private:
 
