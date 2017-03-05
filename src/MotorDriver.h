@@ -185,6 +185,10 @@ public:
     motorBCoast();
   }
 
+  int16_t getCurrentSpeed() {
+    return currentSpeed;
+  }
+
   /**
    * Destructor cleans up memory
    */
