@@ -51,21 +51,37 @@ public:
    * Functions that explicitly call out the motor
    */
 
-  virtual void setMotorACoastSpeed(int8_t speed) {}
+  virtual void setMotorACoastSpeed(int8_t speed) {
+    MotorDriver::currentSpeed = speed;
+  }
 
-  virtual void setMotorABrakeSpeed(int8_t speed) {}
+  virtual void setMotorABrakeSpeed(int8_t speed) {
+    MotorDriver::currentSpeed = speed;
+  }
 
-  virtual void setMotorBCoastSpeed(int8_t speed) {}
+  virtual void setMotorBCoastSpeed(int8_t speed) {
+    MotorDriver::currentSpeed = speed;
+  }
 
-  virtual void setMotorBBrakeSpeed(int8_t speed) {}
+  virtual void setMotorBBrakeSpeed(int8_t speed) {
+    MotorDriver::currentSpeed = speed;
+  }
 
-  virtual void motorABrake() {}
+  virtual void motorABrake() {
+    MotorDriver::currentSpeed = 0;
+  }
 
-  virtual void motorACoast() {}
+  virtual void motorACoast() {
+    MotorDriver::currentSpeed = 0;
+  }
 
-  virtual void motorBBrake() {}
+  virtual void motorBBrake() {
+    MotorDriver::currentSpeed = 0;
+  }
 
-  virtual void motorBCoast() {}
+  virtual void motorBCoast() {
+    MotorDriver::currentSpeed = 0;
+  }
 
   /**
  * Set the motor speed for motor A. You may optionally define a drive type of brake or coast. The drive type
@@ -191,6 +207,7 @@ protected:
   // Give child classes access to motor objects by using protected
   Motor *motorA;
   Motor *motorB;
+  int16_t currentSpeed = 0;
 
 private:
 

@@ -5,6 +5,7 @@
 #include "HBridgeDriver.h"
 
 void HBridgeDriver::setMotorACoastSpeed(int8_t speed) {
+  MotorDriver::setMotorACoastSpeed(speed);
 
   // Set the direction
   if (speed < 0) {
@@ -42,6 +43,8 @@ void HBridgeDriver::setMotorBBrakeSpeed(int8_t speed) {
 }
 
 void HBridgeDriver::motorABrake() {
+  MotorDriver::motorABrake();
+
   // Brake requires both inputs to be equal so we'll set them to low
   digitalWrite(motorA->_pin1, LOW);
   digitalWrite(motorA->_pin2, LOW);
@@ -50,11 +53,15 @@ void HBridgeDriver::motorABrake() {
 }
 
 void HBridgeDriver::motorACoast() {
+  MotorDriver::motorACoast();
+
   // To coast, we simply turn off the motor by setting enable to 0
   analogWrite(motorAEnable, 0);
 }
 
 void HBridgeDriver::motorBBrake() {
+  MotorDriver::motorBBrake();
+
   // Brake requires both inputs to be equal so we'll set them to low
   digitalWrite(motorB->_pin1, LOW);
   digitalWrite(motorB->_pin2, LOW);
@@ -63,6 +70,8 @@ void HBridgeDriver::motorBBrake() {
 }
 
 void HBridgeDriver::motorBCoast() {
+  MotorDriver::motorBCoast();
+
   // To coast, we simply turn off the motor by setting enable to 0
   analogWrite(motorBEnable, 0);
 }

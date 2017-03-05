@@ -10,6 +10,8 @@ void PhaseEnableDriver::setMotorACoastSpeed(int8_t speed) {
 }
 
 void PhaseEnableDriver::setMotorABrakeSpeed(int8_t speed) {
+  MotorDriver::setMotorABrakeSpeed(speed);
+
   if (speed < 0){
     // Drive phase high and enable PWM at specified speed
     digitalWrite(motorA->_pin1, HIGH);
@@ -27,6 +29,8 @@ void PhaseEnableDriver::setMotorBCoastSpeed(int8_t speed) {
 }
 
 void PhaseEnableDriver::setMotorBBrakeSpeed(int8_t speed) {
+  MotorDriver::setMotorBBrakeSpeed(speed);
+
   if (speed < 0){
     // Drive phase high and enable PWM at specified speed
     digitalWrite(motorB->_pin1, HIGH);
@@ -39,6 +43,8 @@ void PhaseEnableDriver::setMotorBBrakeSpeed(int8_t speed) {
 }
 
 void PhaseEnableDriver::motorABrake() {
+  MotorDriver::motorABrake();
+
   // Drive Enable low (stop PWM) (phase is irrelevant)
   analogWrite(motorA->_pin2, 0);
 }
@@ -49,6 +55,8 @@ void PhaseEnableDriver::motorACoast() {
 }
 
 void PhaseEnableDriver::motorBBrake() {
+  MotorDriver::motorBBrake();
+
   // Drive Enable low (stop PWM) (phase is irrelevant)
   analogWrite(motorB->_pin2, 0);
 }
