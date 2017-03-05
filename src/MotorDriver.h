@@ -172,12 +172,12 @@ public:
     motorBCoast();
   }
 
-  char getMotorAPercentageSpeed() {
-    return motorA->getCurrentPercentageSpeed();
+  Motor *getMotorA() {
+    return motorA;
   }
 
-  char getMotorBPercentageSpeed() {
-    return motorB->getCurrentPercentageSpeed();
+  Motor *getMotorB() {
+    return motorB;
   }
 
   /**
