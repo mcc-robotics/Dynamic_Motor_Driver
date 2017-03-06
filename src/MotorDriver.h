@@ -172,11 +172,11 @@ public:
     motorBCoast();
   }
 
-  Motor *getMotorA() {
+  virtual Motor *getMotorA() {
     return motorA;
   }
 
-  Motor *getMotorB() {
+  virtual Motor *getMotorB() {
     return motorB;
   }
 

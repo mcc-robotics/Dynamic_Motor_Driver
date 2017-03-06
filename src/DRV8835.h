@@ -123,6 +123,17 @@ public:
     driveStrategy->motorBCoast();
   }
 
+  /* Bad design on my part, in order to avoid issues we need to override these methods since this class
+   * supports multiple modes. Should try to fix this in the future */
+
+  Motor *getMotorA() {
+    return driveStrategy->getMotorA();
+  }
+
+  Motor *getMotorB() {
+    return driveStrategy->getMotorB();
+  }
+
   ~DRV8835() {
     delete driveStrategy;
   }
