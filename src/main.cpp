@@ -25,13 +25,13 @@ void setup() {
   delay(2000);
 
   l298Driver.setAllCoastSpeed(50);
-  drvDriver.setAllCoastSpeed(50);
+  drvDriver.setAllCoastPower(50);
   delay(2000);
   l298Driver.coastAll();
   drvDriver.coastAll();
   delay(2000);
   l298Driver.setAllCoastSpeed(-50);
-  drvDriver.setAllCoastSpeed(-50);
+  drvDriver.setAllCoastPower(-50);
   delay(2000);
   l298Driver.coastAll();
   drvDriver.coastAll();

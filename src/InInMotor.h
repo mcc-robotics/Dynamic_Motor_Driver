@@ -1,53 +1,19 @@
 //
-// Created by Geoff Berl on 3/18/17.
+// Created by Geoff Berl on 3/5/17.
 //
 
-#ifndef MOTORDRIVER_MOTOR_H
-#define MOTORDRIVER_MOTOR_H
+#ifndef MOTORDRIVER_ININMOTOR_H
+#define MOTORDRIVER_ININMOTOR_H
 
-#include <stdint.h>
 
-class Motor {
+#include "Motor.h"
+
+class InInMotor : public Motor {
 
 public:
 
-  Motor(uint8_t motPin1, uint8_t motPin2) {
-    _pin1 = motPin1;
-    _pin2 = motPin2;
-  }
-
-  uint8_t getPin1() {
-    return _pin1;
-  }
-
-  uint8_t getPin2() {
-    return _pin2;
-  }
-
-  /**
-   * Get the current power setting for this motor.
-   * @return the percentage of power this motor is set to
-   */
-  int8_t getCurrentPower() {
-    return _goalPower;
-  }
-
-  /**
-   * Simple getter to get the current PWM resolution that is set.
-   * @return the current PWM resolution setting
-   */
-  uint8_t getPWMResolution() {
-    return _pwmResolution;
-  }
-
-  virtual void init() {
-    // Enable the pins
-    pinMode(_pin1, OUTPUT);
-    pinMode(_pin2, OUTPUT);
-
-    // Initialize the motor off
-    brake();
-  }
+  InInMotor(uint8_t motPin1, uint8_t motPin2)
+      : Motor(_pin1, _pin2) {}
 
   /**
    * Set the power to apply using Coast drive. If you do not want the speed controlled by the encoders you can simply
@@ -59,7 +25,7 @@ public:
    * drive should be used for most cases.
    * @param power the percentage of power to apply to the motor
    */
-  virtual void setCoastDrivePower(int8_t power) = 0;
+  void setCoastDrivePower(int8_t power);
 
   /**
    * Set the power to apply using Brake drive. If you do not want the speed controlled by the encoders you can simply
@@ -71,40 +37,25 @@ public:
    * result than coast drive.
    * @param power the percentage of power to apply to the motor
    */
-  virtual void setBrakeDrivePower(int8_t power) = 0;
+  void setBrakeDrivePower(int8_t power);
 
   /**
    * Brake stops the motors and applies the brakes to do so. This would be the same as stopping with the brakes in a
    * car.
    */
-  virtual void brake() = 0;
+  void brake();
 
   /**
    * Coast stops the motors but applies no breaking which allows the motors to coast freely with any current momentum.
    * Using coast can provide inaccurate results, for accuracy, brake should be used.
    */
-  virtual void coast() = 0;
+  void coast();
 
   virtual ~InInMotor() {
 
   }
 
-protected:
-
-  /**
-   * Utility function to convert a -100 to 100 speed to the actual speed range of the motor
-   * @param power
-   * @return
-   */
-  int convertPower(int8_t power) {
-    return (power * _pwmResolution) / 100;
-  }
-
-  /** MOTOR values */
-  uint8_t _pin1 = 0;
-  uint8_t _pin2 = 0;
-  int8_t _goalPower = 0;
-  uint8_t _pwmResolution = 255;   // The standard PWM pin is set to 8 bit (255)
 };
 
-#endif //MOTORDRIVER_MOTOR_H
+
+#endif //MOTORDRIVER_ININMOTOR_H
