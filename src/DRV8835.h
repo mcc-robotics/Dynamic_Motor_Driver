@@ -29,7 +29,7 @@ public:
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    */
-  DRV8835::DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2) {
+  DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2) {
       motorA = new InInMotor(motorA1, motorA2);
       motorB = new InInMotor(motorB1, motorB2);
 
@@ -91,10 +91,6 @@ public:
     } else if (_mode == PHASE_ENABLE_MODE) {
       digitalWrite(_modePin, HIGH);
     }
-  }
-
-  ~DRV8835() {
-
   }
 
 private:

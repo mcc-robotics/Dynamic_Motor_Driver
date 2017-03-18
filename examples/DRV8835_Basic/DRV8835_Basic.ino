@@ -31,8 +31,10 @@ DRV8835 driver(3, 4, 5, 6);
 
 
 void setup() {
-  // Nothing else to set up, the library takes care of it for us
-  // What we will do is just call our main code here so that it only happens once
+  // The only thing left to do is call init() so the library can initialize the pins
+  driver.init();
+
+  // Now, we will just call our main code here so that it only happens once
 
   // Let's move the left motor forward a bit (our motor speed is valued from -100 to +100)
   driver.setMotorASpeed(50);  // Set the motor speed to 50% in a forward direction

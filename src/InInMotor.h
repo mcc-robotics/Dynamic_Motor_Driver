@@ -51,10 +51,6 @@ public:
    */
   void coast();
 
-  virtual ~InInMotor() {
-
-  }
-
 };
 
 

@@ -53,10 +53,6 @@ public:
    */
   void coast();
 
-  virtual ~HBridgeMotor() {
-
-  }
-
 private:
 
   uint8_t _enablePin = 0;

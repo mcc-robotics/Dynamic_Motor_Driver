@@ -22,15 +22,19 @@ void setup() {
 //  while(!Serial.availableForWrite()) {} // Wait for serial communication
 //  Serial.println("Begin");
 
+  // Need to call init on the objects first
+  l298Driver.init();
+  drvDriver.init();
+
   delay(2000);
 
-  l298Driver.setAllCoastSpeed(50);
+  l298Driver.setAllCoastPower(50);
   drvDriver.setAllCoastPower(50);
   delay(2000);
   l298Driver.coastAll();
   drvDriver.coastAll();
   delay(2000);
-  l298Driver.setAllCoastSpeed(-50);
+  l298Driver.setAllCoastPower(-50);
   drvDriver.setAllCoastPower(-50);
   delay(2000);
   l298Driver.coastAll();

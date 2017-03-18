@@ -34,7 +34,7 @@ public:
 //    motorB = new InInMotor(motorB1, motorB2);
 //  }
 
-  void init() {
+  virtual void init() {
     // Forward init() to the motor objects
     motorA->init();
     motorB->init();
@@ -189,7 +189,7 @@ public:
   /**
    * Destructor cleans up memory
    */
-  virtual ~MotorDriver() {
+  ~MotorDriver() {
     // Delete the motor objects
     delete motorA;
     delete motorB;

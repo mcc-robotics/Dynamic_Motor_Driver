@@ -85,9 +85,7 @@ public:
    */
   virtual void coast() = 0;
 
-  virtual ~InInMotor() {
-
-  }
+  virtual ~Motor() {};
 
 protected:
 
