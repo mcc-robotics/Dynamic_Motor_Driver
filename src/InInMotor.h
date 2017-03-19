@@ -13,7 +13,7 @@ class InInMotor : public Motor {
 public:
 
   InInMotor(uint8_t motPin1, uint8_t motPin2)
-      : Motor(_pin1, _pin2) {}
+      : Motor(motPin1, motPin2) { }
 
   /**
    * Set the power to apply using Coast drive. If you do not want the speed controlled by the encoders you can simply

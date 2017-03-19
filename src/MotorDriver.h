@@ -6,7 +6,7 @@
 #define MOTORDRIVER_H
 
 #include <Arduino.h>
-#include "InInMotor.h"
+#include "Motor.h"
 
 #define BRAKE_DRIVE 0
 #define COAST_DRIVE 1
@@ -44,19 +44,19 @@ public:
    * Functions that explicitly call out the motor
    */
 
-  void setMotorACoastPower(char power) {
+  void setMotorACoastPower(int8_t power) {
     motorA->setCoastDrivePower(power);
   }
 
-  void setMotorABrakePower(char power) {
+  void setMotorABrakePower(int8_t power) {
     motorA->setBrakeDrivePower(power);
   }
 
-  void setMotorBCoastPower(char power) {
+  void setMotorBCoastPower(int8_t power) {
     motorB->setCoastDrivePower(power);
   }
 
-  void setMotorBBrakePower(char power) {
+  void setMotorBBrakePower(int8_t power) {
     motorB->setBrakeDrivePower(power);
   }
 
@@ -82,7 +82,7 @@ public:
  * @param power     the percent of power to apply to the motor (-100 to +100)
  * @param driveType OPTIONAL drive type
  */
-  void setMotorAPower(char power, unsigned char driveType = BRAKE_DRIVE) {
+  void setMotorAPower(int8_t power, uint8_t driveType = BRAKE_DRIVE) {
     if (driveType == COAST_DRIVE) {
       setMotorACoastPower(power);
     } else {
@@ -96,7 +96,7 @@ public:
    * @param power     the percent of power to apply to the motor (-100 to +100)
    * @param driveType OPTIONAL drive type
    */
-  void setMotorBPower(char power, unsigned char driveType = BRAKE_DRIVE) {
+  void setMotorBPower(int8_t power, uint8_t driveType = BRAKE_DRIVE) {
     if (driveType == COAST_DRIVE) {
       setMotorBCoastPower(power);
     } else {
@@ -108,7 +108,7 @@ public:
    * Functions that control either motor, just pass in which one
    */
 
-  void setCoastPower(char power, unsigned char motor) {
+  void setCoastPower(int8_t power, uint8_t motor) {
     if (motor == MOTOR_A) {
       setMotorACoastPower(power);
     } else {
@@ -116,7 +116,7 @@ public:
     }
   }
 
-  void setBrakePower(char power, unsigned char motor) {
+  void setBrakePower(int8_t power, uint8_t motor) {
     if (motor == MOTOR_A) {
       setMotorABrakePower(power);
     } else {
@@ -128,7 +128,7 @@ public:
    * Stop a specific motor by braking the motor, little to no movement will occur with this type of stop
    * @param motor the motor you wish to brake (MOTOR_A or MOTOR_B)
    */
-  void brake(unsigned char motor) {
+  void brake(uint8_t motor) {
     if (motor == MOTOR_A) {
       motorABrake();
     } else {
@@ -140,7 +140,7 @@ public:
    * Stop a specific motor by coasting the motor, some movement will occur with this type of stop but only from momentum
    * @param motor the motor you wish to stop and coast (MOTOR_A or MOTOR_B)
    */
-  void coast(unsigned char motor) {
+  void coast(uint8_t motor) {
     if (motor == MOTOR_A) {
       motorACoast();
     } else {
@@ -152,12 +152,12 @@ public:
    * Functions to control both motors simultaneously
    */
 
-  void setAllCoastPower(char power) {
+  void setAllCoastPower(int8_t power) {
     setMotorACoastPower(power);
     setMotorBCoastPower(power);
   }
 
-  void setAllBrakePower(char power) {
+  void setAllBrakePower(int8_t power) {
     setMotorABrakePower(power);
     setMotorBBrakePower(power);
   }

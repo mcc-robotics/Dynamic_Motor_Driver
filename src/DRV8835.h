@@ -25,14 +25,13 @@ public:
    * By default, the mode is driven low which is In/In mode, if you wish to use Phase/Enable use the constructor which
    * specifically sets the drive mode.
    * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
-   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
+   * @param motorA2 the motor A input number 2 or the enable pin depending on the mode
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    */
-  DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2) {
-      motorA = new InInMotor(motorA1, motorA2);
-      motorB = new InInMotor(motorB1, motorB2);
-
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
+    motorA = new InInMotor(motorA1, motorA2);
+    motorB = new InInMotor(motorB1, motorB2);
   }
 
   /**
@@ -42,11 +41,11 @@ public:
    * The benefit of this constructor is that you don't need to lose a digital pin if you simply drive the voltage
    * on the Mode pin physically.
    * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
-   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
+   * @param motorA2 the motor A input number 2 or the enable pin depending on the mode
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    */
-  DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2, unsigned char mode) {
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode) {
     if (mode == IN_IN_MODE) {
       motorA = new InInMotor(motorA1, motorA2);
       motorB = new InInMotor(motorB1, motorB2);
@@ -60,16 +59,18 @@ public:
    * The only functional difference the DRV8835 has over other drivers is that it has a drive mode pin to allow for
    * two different drive modes in one unit
    * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
-   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
+   * @param motorA2 the motor A input number 2 or the enable pin depending on the mode
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    * @param mode_pin    the mode pin which controls the chip's drive mode
    * @param mode    the desired drive mode
    */
-  DRV8835(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2, unsigned char mode_pin, unsigned char mode) {
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2,
+          uint8_t mode_pin, uint8_t mode) {
     // The only difference here is we need to drive the mode pin to whichever mode the user chose
     _modePin = mode_pin;
     _mode = mode;
+    _usingModePin = true;
     if (mode == IN_IN_MODE) {
       motorA = new InInMotor(motorA1, motorA2);
       motorB = new InInMotor(motorB1, motorB2);
@@ -85,6 +86,11 @@ public:
   void init() {
     MotorDriver::init();
 
+    // If not using the mode pin, just return now
+    if (!_usingModePin) {
+      return;
+    }
+
     pinMode(_modePin, OUTPUT);
     if (_mode == IN_IN_MODE) {
       digitalWrite(_modePin, LOW);
@@ -97,6 +103,7 @@ private:
 
   uint8_t _modePin = 0;
   uint8_t _mode = IN_IN_MODE;
+  bool _usingModePin = false;
 
 };
 

@@ -13,7 +13,7 @@ class HBridgeMotor : public Motor {
 public:
 
   HBridgeMotor(uint8_t motPin1, uint8_t motPin2, uint8_t enablePin)
-      : Motor(_pin1, _pin2) {
+      : Motor(motPin1, motPin2) {
     HBridgeMotor::_enablePin = enablePin;
   }
 
