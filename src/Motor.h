@@ -6,6 +6,7 @@
 #define MOTORDRIVER_MOTOR_H
 
 #include <stdint.h>
+#include <Encoder.h>
 
 class Motor {
 
@@ -40,6 +41,9 @@ public:
     return _pwmResolution;
   }
 
+  /**
+   * Initialize must be called in setup, this enables the motor pins and initializes the motors in a brake mode.
+   */
   virtual void init() {
     // Enable the pins
     pinMode(_pin1, OUTPUT);
@@ -85,7 +89,20 @@ public:
    */
   virtual void coast() = 0;
 
-  virtual ~Motor() {};
+  /**
+   * Optionally, an encoder can be added and by providing the wheel diameter navigation by distance is achievable.
+   * Currently this is only supported functionality for a quadrature encoder on Teensy products.
+   * @param pin1    pin 1 for the encoder
+   * @param pin2    pin 2 for the encoder
+   * @param countsPerRev    the number of counts on the encoder per rotation
+   * @param wheelDiameterMM  the diameter of the wheel attached to the motor
+   */
+  void addEncoder(uint8_t pin1, uint8_t pin2, float countsPerRev, float wheelDiameterMM);
+
+  virtual ~Motor() {
+    // Delete encoder in case we created it
+    delete(encoder);
+  };
 
 protected:
 
@@ -103,6 +120,35 @@ protected:
   uint8_t _pin2 = 0;
   int8_t _goalPower = 0;
   uint8_t _pwmResolution = 255;   // The standard PWM pin is set to 8 bit (255)
+
+  /** Possible Encoder related values */
+  Encoder *encoder = nullptr;
+  bool encInitialized = false;    // Whether or not the encoder has been initialized
+
+  /** Static Statistical Data */
+  float encoderCPR = 0;           // The number of counts in one wheel revolution
+  float wheelRadiusMM = 0;      // The radius of the wheel attached to this motor
+  float countsPerMM = 0;          // The number of encoder counts in one mm distance
+  uint8_t minRequiredPower = 0;   // The minimum power required to move the wheel (weight, lever arm, etc factor into this)
+  float maximumMMPerSecond = 0;   // The maximum velocity achievable by this motor
+  float circumference = 0;        // The circumference of the wheel (so we don't need to keep computing it)
+
+  // Time variables
+  uint32_t lastUpdateMicros = 0;  // The last micros time that an update was performed
+  uint32_t elapsedMicros = 0;     // The number of micros that elapsed from the last update to the current update
+
+
 };
+
+void Motor::addEncoder(uint8_t pin1, uint8_t pin2, float countsPerRev, float wheelDiameterMM) {
+  // Create a new encoder object
+  encoder = new Encoder(pin1, pin2);
+  Motor::encoderCPR = countsPerRev;
+  Motor::wheelRadiusMM = wheelDiameterMM / 2;
+  // Counts per millimeter is equal to CPR / Circumference
+  Motor::circumference = (float) (2 * PI * wheelRadiusMM);
+  Motor::countsPerMM = encoderCPR / circumference;
+  encInitialized = true;
+}
 
 #endif //MOTORDRIVER_MOTOR_H
