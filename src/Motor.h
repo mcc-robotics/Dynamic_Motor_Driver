@@ -97,11 +97,20 @@ public:
    * @param countsPerRev    the number of counts on the encoder per rotation
    * @param wheelDiameterMM  the diameter of the wheel attached to the motor
    */
-  void addEncoder(uint8_t pin1, uint8_t pin2, float countsPerRev, float wheelDiameterMM);
+  void addEncoder(uint8_t pin1, uint8_t pin2, float countsPerRev, float wheelDiameterMM) {
+    // Create a new encoder object
+    encoder = new Encoder(pin1, pin2);
+    Motor::encoderCPR = countsPerRev;
+    Motor::wheelRadiusMM = wheelDiameterMM / 2;
+    // Counts per millimeter is equal to CPR / Circumference
+    Motor::circumference = (float) (2 * PI * wheelRadiusMM);
+    Motor::countsPerMM = encoderCPR / circumference;
+    encInitialized = true;
+  }
 
   virtual ~Motor() {
     // Delete encoder in case we created it
-    delete(encoder);
+    delete (encoder);
   };
 
 protected:
@@ -139,16 +148,5 @@ protected:
 
 
 };
-
-void Motor::addEncoder(uint8_t pin1, uint8_t pin2, float countsPerRev, float wheelDiameterMM) {
-  // Create a new encoder object
-  encoder = new Encoder(pin1, pin2);
-  Motor::encoderCPR = countsPerRev;
-  Motor::wheelRadiusMM = wheelDiameterMM / 2;
-  // Counts per millimeter is equal to CPR / Circumference
-  Motor::circumference = (float) (2 * PI * wheelRadiusMM);
-  Motor::countsPerMM = encoderCPR / circumference;
-  encInitialized = true;
-}
 
 #endif //MOTORDRIVER_MOTOR_H
