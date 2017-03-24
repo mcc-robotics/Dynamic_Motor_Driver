@@ -51,7 +51,7 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-set(SRC_LIST src/main.cpp src/MotorDriver.h src/DRV8835.h
+set(SRC_LIST src/MotorDriver.h src/DRV8835.h
         src/HBridgeMotor.h src/HBridgeMotor.cpp
         src/L298.h src/SN754410.h
         src/InInMotor.h src/InInMotor.cpp
