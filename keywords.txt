@@ -1,5 +1,3 @@
-
-## TODO: Need to Finish filling this out
 #######################################
 # Syntax Coloring Map For DynamicMotorDriver
 #######################################
@@ -8,26 +6,26 @@
 # Datatypes (KEYWORD1)
 #######################################
 
-MotorDriver         KEYWORD1
-DRV8835             KEYWORD1
-L298                KEYWORD1
-SN754410            KEYWORD1
-HBridgeDriver       KEYWORD1
-InInDriver          KEYWORD1
-PhaseEnableDriver   KEYWORD1
+MotorDriver		KEYWORD1
+DRV8835			KEYWORD1
+L298			KEYWORD1
+SN754410		KEYWORD1
+HBridgeDriver		KEYWORD1
+InInDriver		KEYWORD1
+PhaseEnableDriver	KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-brake			    KEYWORD2
-brakeAll		    KEYWORD2
-coast			    KEYWORD2
-coastAll		    KEYWORD2
-motorABrake		    KEYWORD2
-motorACoast		    KEYWORD2
-motorBBrake		    KEYWORD2
-motorBCoast		    KEYWORD2
+brake			KEYWORD2
+brakeAll		KEYWORD2
+coast			KEYWORD2
+coastAll		KEYWORD2
+motorABrake		KEYWORD2
+motorACoast		KEYWORD2
+motorBBrake		KEYWORD2
+motorBCoast		KEYWORD2
 setAllBrakeSpeed	KEYWORD2
 setAllCoastSpeed	KEYWORD2
 setBrakeSpeed		KEYWORD2
@@ -43,9 +41,9 @@ setMotorBSpeed		KEYWORD2
 # Constants (LITERAL1)
 #######################################
 
-COAST_DRIVE         LITERAL1
-BRAKE_DRIVE         LITERAL1
-MOTOR_A             LITERAL1
-MOTOR_B             LITERAL1
-IN_IN_MODE          LITERAL1
-PHASE_ENABLE_MODE   LITERAL1
+COAST_DRIVE		LITERAL1
+BRAKE_DRIVE		LITERAL1
+MOTOR_A			LITERAL1
+MOTOR_B			LITERAL1
+IN_IN_MODE		LITERAL1
+PHASE_ENABLE_MODE	LITERAL1

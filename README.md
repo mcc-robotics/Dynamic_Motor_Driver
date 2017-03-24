@@ -1,4 +1,4 @@
-#Motor Driver Library
+# Dynamic Motor Driver Library
 
 This library provides functionality for two DC motor bidirectional movement and is abstracted in a way that your code can remain nearly exactly the same even if you want to change out your motor driver. The only thing you would need to change is the object you create. 
 
@@ -41,7 +41,7 @@ For example if you have the following code
   
   }
   ```
-  Now you want to use a new driver board, you no longer have to change your code or use a different library. Simply change the object you create as shown below where we've changed DRV8835Driver to L298Driver
+  Now you want to use a new driver board, you no longer have to change your code or use a different library. Simply change the object you create as shown below where we've changed DRV8835Driver to L298
   ```cpp
   /*
    * Initialize our driver with the pins (motorA1, motorA2, motorB1, motorB2) and we're assuming:
@@ -49,7 +49,7 @@ For example if you have the following code
    * Motor B = Right motor
    * The pins here would map to AIN1, AIN2, BIN1, BIN2 respectively
    */
-  L298Driver driver(3, 4, 5, 6);
+  L298 driver(3, 4, 5, 6);
   
   
   void setup() {
@@ -81,7 +81,5 @@ For example if you have the following code
   }
   ```
 
-##Caveats
+## Caveat(s)
 The library will work with Arduino or Teensy boards but note that it will do nothing with the PWM frequency. If you want to adjust the PWM frequency you will have to do that outside of this library.
-
-Also, the library currently only supports IN/IN mode. Phase/Enable mode will be added in the future.
