@@ -5,6 +5,7 @@
 #ifndef MOTORDRIVER_MOTOR_H
 #define MOTORDRIVER_MOTOR_H
 
+#include <Arduino.h>
 #include <stdint.h>
 
 class Motor {
@@ -38,6 +39,15 @@ public:
    */
   uint8_t getPWMResolution() {
     return _pwmResolution;
+  }
+
+  /**
+   * Set the PWM resolution, the default is for a 8 bit resolution (255). The resolution is needed because the library
+   * allows the user to set a percentage as the speed and the library converts it by using the set PWM resolution.
+   * @param pwmResolution the resolution of the PWM pin.
+   */
+  void setPWMResolution(uint8_t pwmResolution) {
+    _pwmResolution = pwmResolution;
   }
 
   virtual void init() {
