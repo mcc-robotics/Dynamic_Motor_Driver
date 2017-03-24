@@ -5,55 +5,47 @@
 #######################################
 
 #######################################
-# Library (KEYWORD1)
-#######################################
-
-DRV8835	KEYWORD1	DRV8835
-
-#######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-DRV8835	KEYWORD1	DRV8835
+MotorDriver         KEYWORD1
+DRV8835             KEYWORD1
+L298                KEYWORD1
+SN754410            KEYWORD1
+HBridgeDriver       KEYWORD1
+InInDriver          KEYWORD1
+PhaseEnableDriver   KEYWORD1
 
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-brakeAll	KEYWORD2
-coastAll	KEYWORD2
+brake			    KEYWORD2
+brakeAll		    KEYWORD2
+coast			    KEYWORD2
+coastAll		    KEYWORD2
+motorABrake		    KEYWORD2
+motorACoast		    KEYWORD2
+motorBBrake		    KEYWORD2
+motorBCoast		    KEYWORD2
+setAllBrakeSpeed	KEYWORD2
+setAllCoastSpeed	KEYWORD2
+setBrakeSpeed		KEYWORD2
+setCoastSpeed		KEYWORD2
+setMotorABrakeSpeed	KEYWORD2
+setMotorACoastSpeed	KEYWORD2
+setMotorASpeed		KEYWORD2
+setMotorBBrakeSpeed	KEYWORD2
+setMotorBCoastSpeed	KEYWORD2
+setMotorBSpeed		KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
 
-
-################## FIXME
-
-DRV8835 KEYWORD1
-setMotorASpeed KEYWORD2
-setMotorBSpeed KEYWORD2
-setMotorACoastSpeed KEYWORD2
-setMotorABrakeSpeed KEYWORD2
-setMotorBCoastSpeed KEYWORD2
-setMotorBBrakeSpeed KEYWORD2
-setCoastSpeed KEYWORD2
-setBrakeSpeed KEYWORD2
-setAllCoastSpeed KEYWORD2
-setAllBrakeSpeed KEYWORD2
-brakeMotorA KEYWORD2
-brakeMotorB KEYWORD2
-coastMotorA KEYWORD2
-coastMotorB KEYWORD2
-brake KEYWORD2
-brakeAll KEYWORD2
-coast KEYWORD2
-coastAll KEYWORD2
-motorABrake KEYWORD2
-motorACoast KEYWORD2
-motorBBrake KEYWORD2
-motorBCoast KEYWORD2
-COAST_DRIVE LITERAL1
-BRAKE_DRIVE LITERAL1
-MOTOR_A LITERAL1
-MOTOR_B LITERAL1
+COAST_DRIVE         LITERAL1
+BRAKE_DRIVE         LITERAL1
+MOTOR_A             LITERAL1
+MOTOR_B             LITERAL1
+IN_IN_MODE          LITERAL1
+PHASE_ENABLE_MODE   LITERAL1

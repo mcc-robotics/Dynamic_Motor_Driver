@@ -1,11 +1,11 @@
 {
   "name": "DRV8835",
   "keywords": "drv8835, driver, motor, controller",
-  "description": "Library for the DRV8835 Dual Motor Driver",
+  "description": "Library for dual motor control using any motor driver chip",
   "repository":
   {
     "type": "git",
-    "url": "https://github.com/mcc-robotics/DRV8835.git"
+    "url": "https://github.com/mcc-robotics/dynamic_motor_driver.git"
   },
   "frameworks": "arduino",
   "platforms":
