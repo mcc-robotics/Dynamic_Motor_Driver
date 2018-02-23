@@ -1,6 +1,6 @@
 {
   "name": "DRV8835",
-  "keywords": "drv8835, driver, motor, controller",
+  "keywords": "drv8835, driver, motor, controller, TB6612FNG, L298, SN754410",
   "description": "Library for dual motor control using any motor driver chip",
   "repository":
   {

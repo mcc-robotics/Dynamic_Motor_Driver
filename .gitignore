@@ -3,3 +3,4 @@
 CMakeListsPrivate.txt
 cmake-build-debug
 .idea/
+src/main.cpp

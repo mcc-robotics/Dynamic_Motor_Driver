@@ -7,6 +7,7 @@
 #######################################
 
 MotorDriver		KEYWORD1
+TB6612FNG		KEYWORD1
 DRV8835			KEYWORD1
 L298			KEYWORD1
 SN754410		KEYWORD1
