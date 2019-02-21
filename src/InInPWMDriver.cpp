@@ -16,12 +16,12 @@ void InInPWMDriver::setMotorABrakeSpeed(int8_t speed) {
     // (REVERSE) Drive one high, one low and drive PWM
     digitalWrite(motorA->_pin1, LOW);
     digitalWrite(motorA->_pin2, HIGH);
-    analogWrite(motorAPWM, convertSpeed(motorA, speed));
+    analogWrite(motorAPWM, convertSpeed(motorA, speed) * -1);
   } else {
     // (FORWARD) Drive one high, one low and drive PWM
     digitalWrite(motorA->_pin1, HIGH);
     digitalWrite(motorA->_pin2, LOW);
-    analogWrite(motorAPWM, speed);
+    analogWrite(motorAPWM, convertSpeed(motorA, speed));
   }
 }
 
@@ -36,12 +36,12 @@ void InInPWMDriver::setMotorBBrakeSpeed(int8_t speed) {
     // (REVERSE) Drive one high, one low and drive PWM
     digitalWrite(motorB->_pin1, LOW);
     digitalWrite(motorB->_pin2, HIGH);
-    analogWrite(motorBPWM, convertSpeed(motorB, speed));
+    analogWrite(motorBPWM, convertSpeed(motorB, speed) * -1);
   } else {
     // (FORWARD) Drive one high, one low and drive PWM
     digitalWrite(motorB->_pin1, HIGH);
     digitalWrite(motorB->_pin2, LOW);
-    analogWrite(motorBPWM, speed);
+    analogWrite(motorBPWM, convertSpeed(motorB, speed));
   }
 }
 
@@ -49,7 +49,7 @@ void InInPWMDriver::motorABrake() {
   // Drive everything HIGH
   digitalWrite(motorA->_pin1, HIGH);
   digitalWrite(motorA->_pin2, HIGH);
-  analogWrite(motorAPWM, 255);
+  analogWrite(motorAPWM, motorA->_maxSpeed);
 }
 
 void InInPWMDriver::motorACoast() {
@@ -63,7 +63,7 @@ void InInPWMDriver::motorBBrake() {
   // Drive everything HIGH
   digitalWrite(motorB->_pin1, HIGH);
   digitalWrite(motorB->_pin2, HIGH);
-  analogWrite(motorBPWM, 255);
+  analogWrite(motorBPWM, motorB->_maxSpeed);
 }
 
 void InInPWMDriver::motorBCoast() {

@@ -18,6 +18,7 @@
 struct Motor {
   uint8_t _pin1 = 0;
   uint8_t _pin2 = 0;
+  // Currently only support 8 bit PWM but plans are to detect the PWM bit settings someday
   uint16_t _maxSpeed = 255;
 };
 
