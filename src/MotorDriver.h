@@ -11,6 +11,7 @@
 #define COAST_DRIVE 1
 #define IN_IN_MODE 0
 #define PHASE_ENABLE_MODE 1
+#define IN_IN_PWM_MODE 2
 #define MOTOR_A 0
 #define MOTOR_B 1
 
