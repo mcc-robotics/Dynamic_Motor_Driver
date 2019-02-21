@@ -1,6 +1,6 @@
 {
   "name": "Dynamic Motor Driver",
-  "keywords": "drv8835, driver, motor, controller, l298, tb67h420fg",
+  "keywords": "drv8835, driver, motor, controller, l298, tb67h420fg, hbridge, sn754410",
   "description": "Library for dual motor control using any motor driver chip",
   "repository":
   {
