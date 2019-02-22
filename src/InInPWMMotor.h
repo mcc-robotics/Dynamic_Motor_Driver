@@ -28,6 +28,19 @@ public:
 
   void coast();
 
+  uint8_t getPWMPin() {
+    return _motorPWM;
+  }
+
+  // Overriding this to enable our PWM pin
+  virtual void init() {
+    // Enable the pins
+    pinMode(_motorPWM, OUTPUT);
+
+    // Call the parent function
+    Motor::init();
+  }
+
 protected:
 
     uint8_t _motorPWM;

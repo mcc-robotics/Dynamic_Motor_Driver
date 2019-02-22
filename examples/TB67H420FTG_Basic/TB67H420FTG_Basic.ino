@@ -37,8 +37,9 @@ TB67H420FTG driver(7, 8, 5,  9, 10, 6);
 
 
 void setup() {
+  // The only thing left to do is call init() so the library can initialize the pins
+  driver.init();
 
-  // Nothing else to set up, the library takes care of it for us
   // What we will do is just call our main code here so that it only happens once
 
   // Let's move the left motor forward a bit (our motor speed is valued from -100 to +100)
