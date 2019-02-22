@@ -52,9 +52,9 @@ add_custom_target(
 )
 
 set(SRC_LIST src/MotorDriver.h src/DRV8835.h
-        src/HBridgeMotor.h src/HBridgeMotor.cpp
-        src/L298.h src/SN754410.h
-        src/InInMotor.h src/InInMotor.cpp
-        src/PhaseEnableMotor.h src/PhaseEnableMotor.cpp src/Motor.h)
+        src/HBridgeDriver.h src/InInDriver.cpp
+        src/InInDriver.h src/HBridgeDriver.cpp
+        src/PhaseEnableDriver.cpp src/PhaseEnableDriver.h src/L298.h src/SN754410.h
+        src/InInPWMMotor.h src/InInPWMMotor.cpp)
 
 add_executable(${PROJECT_NAME} ${SRC_LIST})
