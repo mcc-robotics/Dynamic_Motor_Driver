@@ -1,5 +1,5 @@
 //
-// Created by gberl on 2/3/2017.
+// Created by gberl on 2/20/2019.
 //
 
 #ifndef TB67H420FTG_H
@@ -15,32 +15,36 @@
  * we simply create the strategy during construction and then forward each call to the strategy, whatever
  * it may be. Once constructed, the class doesn't care what the strategy is, that's the beauty of the
  * strategy pattern.
+ *
+ * Possible future enhancements would be to
+ * + include a single motor mode
+ * + include methods for reading error codes
  */
 class TB67H420FTG : public MotorDriver {
 
 public:
 
-    // TODO: Need to implement the constructors for the two strategies
-    // TODO: Need to add implementation for single motor control support
-    // TODO: Need to add function and implementation for handling error codes
-    // TODO: Need to add example in the examples directory
-
-    // TODO: Update comments
   /**
-   * If calling this constructor the mode will default to In/In unless you have driven the mode pin HIGH on the chip.
-   * By default, the mode is driven low which is In/In mode, if you wish to use Phase/Enable use the constructor which
-   * specifically sets the drive mode.
-   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
-   * @param motorA2 the motor A input number 2 or the enable pin depending on the mode
-   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
-   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
+   * If calling this constructor the mode will default to two pin In/In mode.
+   * @param motorA1 the motor A input number 1
+   * @param motorA2 the motor A input number 2
+   * @param motorB1 the motor B input number 1
+   * @param motorB2 the motor B input number 2
    */
   TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2)
       : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
     driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
   }
 
-  // TODO: Add comments
+  /**
+   * If calling this constructor the mode will default to three pin In/In/PWM mode.
+   * @param motorA1   the motor A input number 1
+   * @param motorA2   the motor A input number 2
+   * @param motorAPWM the motor A PWM input
+   * @param motorB1   the motor B input number 1
+   * @param motorB2   the motor B input number 2
+   * @param motorBPWM the motor B PWM input
+   */
   TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorAPWM, uint8_t motorB1, uint8_t motorB2, uint8_t motorBPWM)
       : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
     driveStrategy = new InInPWMDriver(motorA1, motorA2, motorAPWM, motorB1, motorB2, motorBPWM);
