@@ -1,33 +1,39 @@
 #include "TB67H420FTG.h"
 
 /*
- * This is a simple example of how to use the DRV8835 library with your Arduino compatible board.
+ * This is a simple example of how to use the TB67H420FTG library with your Arduino compatible board.
  *
  * Be sure to change the values for your motor pins. Also be sure that you have attached each motor pin to
  * an appropriate PWM capable pin as the library uses PWM controls.
  *
  *
- * HOOKUP GUIDE for the DRV8835 motor driver board from Pololu <https://www.pololu.com/product/2135
+ * HOOKUP GUIDE for the TB67H420FTG motor driver board from Pololu <https://www.pololu.com/product/2999
  *                                   ___________
- *           Common Ground  <--  GND |         | GND   --> Common Ground
- * + Logic voltage (2-7 V)  <--  VCC |         | VIN   --> + Motor voltage (usually 6V or 12V)
- *                 MCU PWM  <-- BIN2 |         | BOUT2 --> To motor B
- *                 MCU PWM  <-- BIN1 |         | BOUT1 --> To motor B
- *                 MCU PWM  <-- AIN2 |         | AOUT2 --> To motor A
- *                 MCU PWM  <-- AIN1 |         | AOUT1 --> To motor A
- *                          <-- MODE |_________| VMM   -->
+ *                         <--    VM |         |
+ *                 Ground  <--   GND |         |
+ *                         <--   VCC |         | VIN -->  + Motor voltage (10V - 47V)
+ *        MCU Digital (7)  <--  INA1 |         | GND -->  Ground
+ *        MCU Digital (8)  <--  INA2 |         | GND -->  Ground
+ *            MCU PWM (5)  <--  PWMA |         | B+  -->  To motor B+
+ *        MCU Digital (9)  <--  INB1 |         | B-  -->  To motor B-
+ *       MCU Digital (10)  <--  INB2 |         | A-  -->  To motor A+
+ *            MCU PWM (6)  <--  PWMB |         | A+  -->  To motor A-
+ *                         <--   LO1 |         |
+ *                         <--   LO2 |         |
+ *                         <-- VREFA |_________|
  *
  */
 
 /*
- * Initialize our driver with the pins (motorA1, motorA2, motorB1, motorB2) and we're assuming:
+ * Initialize our driver with the pins (motorA1, motorA2, motorAPWM, motorB1, motorB2, motorBPWM) and we're assuming:
  * Motor A = Left motor
  * Motor B = Right motor
- * The pins here would map to AIN1, AIN2, BIN1, BIN2 respectively
- * Also, note that this constructor requires that you have either driven Mode low on the chip or done nothing with it.
- * If you have driven the mode HIGH you would use ```DRV8835 driver(3, 4, 5, 6, PHASE_ENABLE_MODE);```
+ * The pins here would map to INA1, INA2, PWMA, INB1, INB2, PWMB respectively
+ * Also, note that this constructor supports the use of using two PWM pins for each motor. In which case you would
+ * only need a PWM in each of the INx pins and drive the PWMx pins high either with a 10k resistor to 5V or use a
+ * digital pin. In this case the declaration would be (motorA1, motorA2, motorB1, motorB2)
  */
-TB67H420FTG driver(25, 26, 9,  27, 28, 10);
+TB67H420FTG driver(7, 8, 5,  9, 10, 6);
 
 
 void setup() {
