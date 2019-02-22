@@ -11,8 +11,13 @@
 class InInPWMDriver : public MotorDriver {
 
 public:
-  InInPWMDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorAPWM, uint8_t motorB1, uint8_t motorB2, uint8_t MOTORBPWM)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {}
+  InInPWMDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorAPWM, uint8_t motorB1, uint8_t motorB2, uint8_t motorBPWM)
+      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
+    _motorAPWM = motorAPWM;
+    _motorBPWM = motorBPWM;
+    pinMode(motorAPWM, OUTPUT);
+    pinMode(motorBPWM, OUTPUT);
+  }
 
   /*
    * These are all virtual functions inherited from MotorDriver
@@ -36,9 +41,9 @@ public:
 
 protected:
 
-    uint8_t motorAPWM;
+    uint8_t _motorAPWM;
 
-    uint8_t motorBPWM
+    uint8_t _motorBPWM;
 
 };
 

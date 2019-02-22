@@ -46,51 +46,6 @@ public:
     driveStrategy = new InInPWMDriver(motorA1, motorA2, motorAPWM, motorB1, motorB2, motorBPWM);
   }
 
-    // TODO: Update comments
-  /**
-   * If calling this constructor the mode you specify must match that which you have defined by the circuitry. If you
-   * have not connected anything to the Mode pin on the chip or driven the Mode pin LOW then you should be passing in
-   * IN_IN_MODE. If you have driven the Mode pin HIGH you must specify IN_IN_PWM_MODE
-   * The benefit of this constructor is that you don't need to lose a digital pin if you simply drive the voltage
-   * on the Mode pin physically.
-   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
-   * @param motorA2 the motor A input number 2 or the enable pin depending on the mode
-   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
-   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
-   */
-  TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
-    if (mode == IN_IN_MODE) {
-      driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
-    } else if (mode == IN_IN_PWM_MODE) {
-      driveStrategy = new InInPWMDriver(motorA1, motorA2, motorB1, motorB2);
-    }
-  }
-
-    // TODO: Update comments
-  /**
-   * The only functional difference the DRV8835 has over other drivers is that it has a drive mode pin to allow for
-   * two different drive modes in one unit
-   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
-   * @param motorA2 the motor A input number 2 or the enable pin depending on the mode
-   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
-   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
-   * @param mode_pin    the mode pin which controls the chip's drive mode
-   * @param mode    the desired drive mode
-   */
-  TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode_pin, uint8_t mode)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
-    // The only difference here is we need to drive the mode pin to whichever mode the user chose
-    pinMode(mode_pin, OUTPUT);
-    if (mode == IN_IN_MODE) {
-      digitalWrite(mode_pin, LOW);
-      driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
-    } else {
-      digitalWrite(mode_pin, HIGH);
-      driveStrategy = new PhaseEnableDriver(motorA1, motorA2, motorB1, motorB2);
-    }
-  }
-
   /*
    * These are all virtual functions inherited from MotorDriver
    */

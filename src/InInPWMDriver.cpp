@@ -16,12 +16,12 @@ void InInPWMDriver::setMotorABrakeSpeed(int8_t speed) {
     // (REVERSE) Drive one high, one low and drive PWM
     digitalWrite(motorA->_pin1, LOW);
     digitalWrite(motorA->_pin2, HIGH);
-    analogWrite(motorAPWM, convertSpeed(motorA, speed) * -1);
+    analogWrite(_motorAPWM, convertSpeed(motorA, speed) * -1);
   } else {
     // (FORWARD) Drive one high, one low and drive PWM
     digitalWrite(motorA->_pin1, HIGH);
     digitalWrite(motorA->_pin2, LOW);
-    analogWrite(motorAPWM, convertSpeed(motorA, speed));
+    analogWrite(_motorAPWM, convertSpeed(motorA, speed));
   }
 }
 
@@ -36,12 +36,12 @@ void InInPWMDriver::setMotorBBrakeSpeed(int8_t speed) {
     // (REVERSE) Drive one high, one low and drive PWM
     digitalWrite(motorB->_pin1, LOW);
     digitalWrite(motorB->_pin2, HIGH);
-    analogWrite(motorBPWM, convertSpeed(motorB, speed) * -1);
+    analogWrite(_motorBPWM, convertSpeed(motorB, speed) * -1);
   } else {
     // (FORWARD) Drive one high, one low and drive PWM
     digitalWrite(motorB->_pin1, HIGH);
     digitalWrite(motorB->_pin2, LOW);
-    analogWrite(motorBPWM, convertSpeed(motorB, speed));
+    analogWrite(_motorBPWM, convertSpeed(motorB, speed));
   }
 }
 
@@ -49,26 +49,26 @@ void InInPWMDriver::motorABrake() {
   // Drive everything HIGH
   digitalWrite(motorA->_pin1, HIGH);
   digitalWrite(motorA->_pin2, HIGH);
-  analogWrite(motorAPWM, motorA->_maxSpeed);
+  analogWrite(_motorAPWM, motorA->_maxSpeed);
 }
 
 void InInPWMDriver::motorACoast() {
   // Drive everything LOW
   digitalWrite(motorA->_pin1, LOW);
   digitalWrite(motorA->_pin2, LOW);
-  analogWrite(motorAPWM, 0);
+  analogWrite(_motorAPWM, 0);
 }
 
 void InInPWMDriver::motorBBrake() {
   // Drive everything HIGH
   digitalWrite(motorB->_pin1, HIGH);
   digitalWrite(motorB->_pin2, HIGH);
-  analogWrite(motorBPWM, motorB->_maxSpeed);
+  analogWrite(_motorBPWM, motorB->_maxSpeed);
 }
 
 void InInPWMDriver::motorBCoast() {
   // Drive everything LOW
   digitalWrite(motorB->_pin1, LOW);
   digitalWrite(motorB->_pin2, LOW);
-  analogWrite(motorBPWM, 0);
+  analogWrite(_motorBPWM, 0);
 }
