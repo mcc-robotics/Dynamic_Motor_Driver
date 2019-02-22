@@ -1,13 +1,13 @@
 #include "TB67H420FTG.h"
 
 /*
- * This is a simple example of how to use the TB67H420FTG library with your Arduino compatible board.
+ * This is a simple example of how to use the TB67H420FTG_Basic library with your Arduino compatible board.
  *
  * Be sure to change the values for your motor pins. Also be sure that you have attached each motor pin to
  * an appropriate PWM capable pin as the library uses PWM controls.
  *
  *
- * HOOKUP GUIDE for the TB67H420FTG motor driver board from Pololu <https://www.pololu.com/product/2999
+ * HOOKUP GUIDE for the TB67H420FTG_Basic motor driver board from Pololu <https://www.pololu.com/product/2999
  *                                   ___________
  *                         <--    VM |         |
  *                 Ground  <--   GND |         |
