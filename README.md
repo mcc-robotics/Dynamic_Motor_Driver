@@ -87,3 +87,7 @@ For example if you have the following code
 
 ## Caveat(s)
 The library will work with Arduino or Teensy boards but note that it will do nothing with the PWM frequency. If you want to adjust the PWM frequency you will have to do that outside of this library.
+
+## FAQs
+Why is one motor spinning in the wrong direction?
+> The simplest and most proper solution is to swap the motor connections in your circuit. In many cases it is also possible to swap the pin assignments. So, if you have a motor driver defined, for example, as driver(5, 6, 7, 8) and motor A is spinning the wrong direction, you could change to driver(6, 5, 7, 8)
