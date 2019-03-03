@@ -6,7 +6,8 @@
 #define MOTORDRIVER_L298_H
 
 
-#include "HBridgeDriver.h"
+#include "MotorDriver.h"
+#include "HBridgeMotor.h"
 
 /**
  * L298 doesn't add any additional functionality so we just simply extend the HBridgeDriver class and this
@@ -14,10 +15,14 @@
  * simply create an HBridgeDriver object but the point is that you don't need to know that the L298 is an
  * H-Bridge, you just create an L298 object and let the library do the rest.
  */
-class L298 : public HBridgeDriver {
+class L298 : public MotorDriver {
 public:
-  L298(uint8_t motorA1, uint8_t motorA2, uint8_t motorAEnable, uint8_t motorB1, uint8_t motorB2, uint8_t motorBEnable)
-      : HBridgeDriver(motorA1, motorA2, motorAEnable, motorB1, motorB2, motorBEnable) {}
+  L298(uint8_t motorA1, uint8_t motorA2, uint8_t motorAEnable, uint8_t motorB1,
+       uint8_t motorB2, uint8_t motorBEnable) {
+    // Create the motors
+    motorA = new HBridgeMotor(motorA1, motorA2, motorAEnable);
+    motorB = new HBridgeMotor(motorB1, motorB2, motorBEnable);
+  }
 
 
 };

@@ -1,4 +1,4 @@
-#######################################
+######################################
 # Syntax Coloring Map For DynamicMotorDriver
 #######################################
 
@@ -6,6 +6,7 @@
 # Datatypes (KEYWORD1)
 #######################################
 
+Motor			KEYWORD1
 MotorDriver		KEYWORD1
 DRV8835			KEYWORD1
 L298			KEYWORD1
@@ -19,24 +20,39 @@ TB67H420FTG		KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
+## MotorDriver Related
+
 brake			KEYWORD2
 brakeAll		KEYWORD2
 coast			KEYWORD2
 coastAll		KEYWORD2
+getMotorA		KEYWORD2
+getMotorB		KEYWORD2
+init			KEYWORD2
 motorABrake		KEYWORD2
 motorACoast		KEYWORD2
 motorBBrake		KEYWORD2
 motorBCoast		KEYWORD2
-setAllBrakeSpeed	KEYWORD2
-setAllCoastSpeed	KEYWORD2
-setBrakeSpeed		KEYWORD2
-setCoastSpeed		KEYWORD2
-setMotorABrakeSpeed	KEYWORD2
-setMotorACoastSpeed	KEYWORD2
-setMotorASpeed		KEYWORD2
-setMotorBBrakeSpeed	KEYWORD2
-setMotorBCoastSpeed	KEYWORD2
-setMotorBSpeed		KEYWORD2
+setAllBrakePower	KEYWORD2
+setAllCoastPower	KEYWORD2
+setBrakePower		KEYWORD2
+setCoastPower		KEYWORD2
+setMotorABrakePower	KEYWORD2
+setMotorACoastPower	KEYWORD2
+setMotorAPower		KEYWORD2
+setMotorBBrakePower	KEYWORD2
+setMotorBCoastPower	KEYWORD2
+setMotorBPower		KEYWORD2
+
+## Motor Related
+
+getCurrentPower		KEYWORD2
+getPin1			KEYWORD2
+getPin2			KEYWORD2
+getPWMResolution	KEYWORD2
+setBrakeDrivePower	KEYWORD2
+setCoastDrivePower	KEYWORD2
+setPWMResolution	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)

@@ -2,13 +2,13 @@
 // Created by gberl on 2/3/2017.
 //
 
-#ifndef DRV8835_H
-#define DRV8835_H
+#ifndef MOTORDRIVER_DRV8835_H
+#define MOTORDRIVER_DRV8835_H
 
 #include <Arduino.h>
 #include "MotorDriver.h"
-#include "InInDriver.h"
-#include "PhaseEnableDriver.h"
+#include "InInMotor.h"
+#include "PhaseEnableMotor.h"
 
 /**
  * The DRV8835 chip supports both Phase/Enable and In/In modes so I've implemented a strategy pattern where
@@ -29,9 +29,9 @@ public:
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    */
-  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
-    driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
+    motorA = new InInMotor(motorA1, motorA2);
+    motorB = new InInMotor(motorB1, motorB2);
   }
 
   /**
@@ -45,12 +45,13 @@ public:
    * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
    * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
    */
-  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode) {
     if (mode == IN_IN_MODE) {
-      driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
+      motorA = new InInMotor(motorA1, motorA2);
+      motorB = new InInMotor(motorB1, motorB2);
     } else if (mode == PHASE_ENABLE_MODE) {
-      driveStrategy = new PhaseEnableDriver(motorA1, motorA2, motorB1, motorB2);
+      motorA = new PhaseEnableMotor(motorA1, motorA2);
+      motorB = new PhaseEnableMotor(motorB1, motorB2);
     }
   }
 
@@ -64,72 +65,47 @@ public:
    * @param mode_pin    the mode pin which controls the chip's drive mode
    * @param mode    the desired drive mode
    */
-  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2, uint8_t mode_pin, uint8_t mode)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
+  DRV8835(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2,
+          uint8_t mode_pin, uint8_t mode) {
     // The only difference here is we need to drive the mode pin to whichever mode the user chose
-    pinMode(mode_pin, OUTPUT);
+    _modePin = mode_pin;
+    _mode = mode;
+    _usingModePin = true;
     if (mode == IN_IN_MODE) {
-      digitalWrite(mode_pin, LOW);
-      driveStrategy = new InInDriver(motorA1, motorA2, motorB1, motorB2);
-    } else {
-      digitalWrite(mode_pin, HIGH);
-      driveStrategy = new PhaseEnableDriver(motorA1, motorA2, motorB1, motorB2);
+      motorA = new InInMotor(motorA1, motorA2);
+      motorB = new InInMotor(motorB1, motorB2);
+    } else if (mode == PHASE_ENABLE_MODE) {
+      motorA = new PhaseEnableMotor(motorA1, motorA2);
+      motorB = new PhaseEnableMotor(motorB1, motorB2);
     }
   }
 
-  /*
-   * These are all virtual functions inherited from MotorDriver
+  /**
+   * We override init() because we also need to adjust the mode pin
    */
+  void init() {
+    MotorDriver::init();
 
-  void setMotorACoastSpeed(int8_t speed) {
-    // Simply call the strategy function
-    driveStrategy->setMotorACoastSpeed(speed);
-  }
+    // If not using the mode pin, just return now
+    if (!_usingModePin) {
+      return;
+    }
 
-  void setMotorABrakeSpeed(int8_t speed) {
-    // Simply call the strategy function
-    driveStrategy->setMotorABrakeSpeed(speed);
-  }
-
-  void setMotorBCoastSpeed(int8_t speed) {
-    // Simply call the strategy function
-    driveStrategy->setMotorBCoastSpeed(speed);
-  }
-
-  void setMotorBBrakeSpeed(int8_t speed) {
-    // Simply call the strategy function
-    driveStrategy->setMotorBBrakeSpeed(speed);
-  }
-
-  void motorABrake() {
-    // Simply call the strategy function
-    driveStrategy->motorABrake();
-  }
-
-  void motorACoast() {
-    // Simply call the strategy function
-    driveStrategy->motorACoast();
-  }
-
-  void motorBBrake() {
-    // Simply call the strategy function
-    driveStrategy->motorBBrake();
-  }
-
-  void motorBCoast() {
-    // Simply call the strategy function
-    driveStrategy->motorBCoast();
-  }
-
-  ~DRV8835() {
-    delete driveStrategy;
+    pinMode(_modePin, OUTPUT);
+    if (_mode == IN_IN_MODE) {
+      digitalWrite(_modePin, LOW);
+    } else if (_mode == PHASE_ENABLE_MODE) {
+      digitalWrite(_modePin, HIGH);
+    }
   }
 
 private:
 
-  MotorDriver *driveStrategy = nullptr;
+  uint8_t _modePin = 0;
+  uint8_t _mode = IN_IN_MODE;
+  bool _usingModePin = false;
 
 };
 
 
-#endif // DRV8835_H
+#endif // MOTORDRIVER_DRV8835_H

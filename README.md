@@ -14,22 +14,24 @@ For example if you have the following code
   
   
   void setup() {
-    // Nothing else to set up, the library takes care of it for us
-    // What we will do is just call our main code here so that it only happens once
+    // The only thing left to do is call init() so the library can initialize the pins
+    driver.init();
+      
+    // Now, what we will do is just call our main code here so that it only happens once
   
     // Let's move the left motor forward a bit (our motor speed is valued from -100 to +100)
-    driver.setMotorASpeed(50);  // Set the motor speed to 50% in a forward direction
+    driver.setMotorAPower(50);  // Set the motor speed to 50% in a forward direction
     delay(1000);                // Wait a second
     driver.motorABrake();       // Stop our motor, we can brake or coast (self explanatory right)
-  
+
     // Let's move the right motor forward a bit (Motor B this time)
-    driver.setMotorBSpeed(50);  // Set the motor speed to 50% in a forward direction
+    driver.setMotorBPower(50);  // Set the motor speed to 50% in a forward direction
     delay(1000);                // Wait a second
-    driver.motorBBrake();       // Stop our motor
-  
+   driver.motorBBrake();       // Stop our motor
+
     // Now let's control both motors to drive straight
-    driver.setMotorASpeed(50);
-    driver.setMotorBSpeed(50);
+    driver.setMotorAPower(50);
+    driver.setMotorBPower(50);
     delay(1000);                // Wait a second
     driver.brakeAll();          // Notice here we can brake both motors using the brakeAll() function
   
@@ -53,22 +55,24 @@ For example if you have the following code
   
   
   void setup() {
-    // Nothing else to set up, the library takes care of it for us
-    // What we will do is just call our main code here so that it only happens once
+    // The only thing left to do is call init() so the library can initialize the pins
+          driver.init();
+          
+    // Now, what we will do is just call our main code here so that it only happens once
   
     // Let's move the left motor forward a bit (our motor speed is valued from -100 to +100)
-    driver.setMotorASpeed(50);  // Set the motor speed to 50% in a forward direction
+    driver.setMotorAPower(50);  // Set the motor speed to 50% in a forward direction
     delay(1000);                // Wait a second
     driver.motorABrake();       // Stop our motor, we can brake or coast (self explanatory right)
-  
+
     // Let's move the right motor forward a bit (Motor B this time)
-    driver.setMotorBSpeed(50);  // Set the motor speed to 50% in a forward direction
+    driver.setMotorBPower(50);  // Set the motor speed to 50% in a forward direction
     delay(1000);                // Wait a second
     driver.motorBBrake();       // Stop our motor
-  
+
     // Now let's control both motors to drive straight
-    driver.setMotorASpeed(50);
-    driver.setMotorBSpeed(50);
+    driver.setMotorAPower(50);
+    driver.setMotorBPower(50);
     delay(1000);                // Wait a second
     driver.brakeAll();          // Notice here we can brake both motors using the brakeAll() function
   
@@ -83,3 +87,7 @@ For example if you have the following code
 
 ## Caveat(s)
 The library will work with Arduino or Teensy boards but note that it will do nothing with the PWM frequency. If you want to adjust the PWM frequency you will have to do that outside of this library.
+
+## FAQs
+Why is one motor spinning in the wrong direction?
+> The simplest and most proper solution is to swap the motor connections in your circuit. In many cases it is also possible to swap the pin assignments. So, if you have a motor driver defined, for example, as driver(5, 6, 7, 8) and motor A is spinning the wrong direction, you could change to driver(6, 5, 7, 8)

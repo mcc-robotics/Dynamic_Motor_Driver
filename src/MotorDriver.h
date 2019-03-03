@@ -6,6 +6,7 @@
 #define MOTORDRIVER_H
 
 #include <Arduino.h>
+#include "Motor.h"
 
 #define BRAKE_DRIVE 0
 #define COAST_DRIVE 1
@@ -15,85 +16,92 @@
 #define MOTOR_A 0
 #define MOTOR_B 1
 
-struct Motor {
-  uint8_t _pin1 = 0;
-  uint8_t _pin2 = 0;
-  // Currently only support 8 bit PWM but plans are to detect the PWM bit settings someday
-  uint16_t _maxSpeed = 255;
-};
-
 class MotorDriver {
 
 public:
 
-  /**
-   * The main constructor for the motor driver object. The assumption is that you want to control two motors so you
-   * will need to provide pins 1 and 2 for each motor as well as specify a drive mode. If a drive mode is not
-   * specified or is incorrectly specified, the library will default to Phase/Enable.
-   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
-   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
-   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
-   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
-   * @param mode    the desired drive mode
-   */
-  MotorDriver(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
-    motorA = new Motor();
-    motorB = new Motor();
-    motorA->_pin1 = motorA1;
-    motorA->_pin2 = motorA2;
-    motorB->_pin1 = motorB1;
-    motorB->_pin2 = motorB2;
-    pinMode(motorA1, OUTPUT);
-    pinMode(motorA2, OUTPUT);
-    pinMode(motorB1, OUTPUT);
-    pinMode(motorB2, OUTPUT);
+//  /**
+//   * The main constructor for the motor driver object. The assumption is that you want to control two motors so you
+//   * will need to provide pins 1 and 2 for each motor as well as specify a drive mode. If a drive mode is not
+//   * specified or is incorrectly specified, the library will default to Phase/Enable.
+//   * @param motorA1 The motor A input number 1 or the phase pin depending on the mode
+//   * @param motorA2 the motor A input number 2 or the enable pin depensing on the mode
+//   * @param motorB1 the motor B input number 1 or the phase pin depending on the mode
+//   * @param motorB2 the motor B input number 2 or the phase pin depending on the mode
+//   * @param mode    the desired drive mode
+//   */
+//  MotorDriver(unsigned char motorA1, unsigned char motorA2, unsigned char motorB1, unsigned char motorB2) {
+//    motorA = new InInMotor(motorA1, motorA2);
+//    motorB = new InInMotor(motorB1, motorB2);
+//  }
+
+  virtual void init() {
+    // Forward init() to the motor objects
+    motorA->init();
+    motorB->init();
   }
 
   /*
    * Functions that explicitly call out the motor
    */
 
-  virtual void setMotorACoastSpeed(int8_t speed) {}
+  void setMotorACoastPower(int8_t power) {
+    motorA->setCoastDrivePower(power);
+  }
 
-  virtual void setMotorABrakeSpeed(int8_t speed) {}
+  void setMotorABrakePower(int8_t power) {
+    motorA->setBrakeDrivePower(power);
+  }
 
-  virtual void setMotorBCoastSpeed(int8_t speed) {}
+  void setMotorBCoastPower(int8_t power) {
+    motorB->setCoastDrivePower(power);
+  }
 
-  virtual void setMotorBBrakeSpeed(int8_t speed) {}
+  void setMotorBBrakePower(int8_t power) {
+    motorB->setBrakeDrivePower(power);
+  }
 
-  virtual void motorABrake() {}
+  void motorABrake() {
+    motorA->brake();
+  }
 
-  virtual void motorACoast() {}
+  void motorACoast() {
+    motorA->coast();
+  }
 
-  virtual void motorBBrake() {}
+  void motorBBrake() {
+    motorB->brake();
+  }
 
-  virtual void motorBCoast() {}
+  void motorBCoast() {
+    motorB->coast();
+  }
 
   /**
  * Set the motor speed for motor A. You may optionally define a drive type of brake or coast. The drive type
  * is defaulted to brake in which an active brake will be applied to the motor to reduce coasting while moving
- * @param speed     the percent of power to apply to the motor (-100 to +100)
+ * @param power     the percent of power to apply to the motor (-100 to +100)
  * @param driveType OPTIONAL drive type
  */
-  void setMotorASpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE) {
+  void setMotorAPower(int8_t power, uint8_t driveType = BRAKE_DRIVE) {
     if (driveType == COAST_DRIVE) {
-      setMotorACoastSpeed(speed);
+      setMotorACoastPower(power);
     } else {
-      setMotorABrakeSpeed(speed);
+      setMotorABrakePower(power);
     }
   }
 
   /**
    * Set the motor speed for motor A. You may optionally define a drive type of brake or coast. The drive type
    * is defaulted to brake in which an active brake will be applied to the motor to reduce coasting while moving
-   * @param speed     the percent of power to apply to the motor (-100 to +100)
+   * @param power     the percent of power to apply to the motor (-100 to +100)
    * @param driveType OPTIONAL drive type
    */
-  void setMotorBSpeed(int8_t speed, uint8_t driveType = BRAKE_DRIVE) {
+  void setMotorBPower(int8_t power, uint8_t driveType = BRAKE_DRIVE) {
     if (driveType == COAST_DRIVE) {
-      setMotorBCoastSpeed(speed);
+      setMotorBCoastPower(power);
     } else {
-      setMotorBBrakeSpeed(speed);
+      setMotorBBrakePower(power);
     }
   }
 
@@ -101,19 +109,19 @@ public:
    * Functions that control either motor, just pass in which one
    */
 
-  void setCoastSpeed(int8_t speed, uint8_t motor) {
+  void setCoastPower(int8_t power, uint8_t motor) {
     if (motor == MOTOR_A) {
-      setMotorACoastSpeed(speed);
+      setMotorACoastPower(power);
     } else {
-      setMotorBCoastSpeed(speed);
+      setMotorBCoastPower(power);
     }
   }
 
-  void setBrakeSpeed(int8_t speed, uint8_t motor) {
+  void setBrakePower(int8_t power, uint8_t motor) {
     if (motor == MOTOR_A) {
-      setMotorABrakeSpeed(speed);
+      setMotorABrakePower(power);
     } else {
-      setMotorBBrakeSpeed(speed);
+      setMotorBBrakePower(power);
     }
   }
 
@@ -145,14 +153,14 @@ public:
    * Functions to control both motors simultaneously
    */
 
-  void setAllCoastSpeed(int8_t speed) {
-    setMotorACoastSpeed(speed);
-    setMotorBCoastSpeed(speed);
+  void setAllCoastPower(int8_t power) {
+    setMotorACoastPower(power);
+    setMotorBCoastPower(power);
   }
 
-  void setAllBrakeSpeed(int8_t speed) {
-    setMotorABrakeSpeed(speed);
-    setMotorBBrakeSpeed(speed);
+  void setAllBrakePower(int8_t power) {
+    setMotorABrakePower(power);
+    setMotorBBrakePower(power);
   }
 
   /**
@@ -171,24 +179,24 @@ public:
     motorBCoast();
   }
 
+  Motor *getMotorA() {
+    return motorA;
+  }
+
+  Motor *getMotorB() {
+    return motorB;
+  }
+
   /**
    * Destructor cleans up memory
    */
-  virtual ~MotorDriver() {
+  ~MotorDriver() {
+    // Delete the motor objects
     delete motorA;
     delete motorB;
   }
 
 protected:
-
-  /**
-   * Utility function to convert a -100 to 100 speed to the actual speed range of the motor
-   * @param speed
-   * @return
-   */
-  int16_t convertSpeed(Motor *motor, int16_t speed) {
-    return (speed * motor->_maxSpeed) / 100;
-  }
 
   // Give child classes access to motor objects by using protected
   Motor *motorA;
