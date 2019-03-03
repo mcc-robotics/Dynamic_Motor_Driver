@@ -2,8 +2,8 @@
 // Created by gberl on 2/3/2017.
 //
 
-#ifndef DRV8835_H
-#define DRV8835_H
+#ifndef MOTORDRIVER_DRV8835_H
+#define MOTORDRIVER_DRV8835_H
 
 #include <Arduino.h>
 #include "MotorDriver.h"
@@ -108,4 +108,4 @@ private:
 };
 
 
-#endif // DRV8835_H
+#endif // MOTORDRIVER_DRV8835_H

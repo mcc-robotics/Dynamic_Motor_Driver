@@ -2,8 +2,8 @@
 // Created by gberl on 2/20/2019.
 //
 
-#ifndef TB67H420FTG_H
-#define TB67H420FTG_H
+#ifndef MOTORDRIVER_TB67H420FTG_H
+#define MOTORDRIVER_TB67H420FTG_H
 
 #include <Arduino.h>
 #include "MotorDriver.h"
@@ -53,4 +53,4 @@ public:
 };
 
 
-#endif // TB67H420FTG_H
+#endif // MOTORDRIVER_TB67H420FTG_H
