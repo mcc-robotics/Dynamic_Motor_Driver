@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.2)
-project(MotorDriver)
+project(DynamicMotorDriver)
 
 include(CMakeListsPrivate.txt)
 
