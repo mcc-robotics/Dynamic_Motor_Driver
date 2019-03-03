@@ -7,7 +7,7 @@
 
 #include <Arduino.h>
 #include "MotorDriver.h"
-#include "InInDriver.h"
+#include "InInMotor.h"
 #include "InInPWMMotor.h"
 
 /**
@@ -31,8 +31,7 @@ public:
    * @param motorB1 the motor B input number 1
    * @param motorB2 the motor B input number 2
    */
-  TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
+  TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorB1, uint8_t motorB2) {
     motorA = new InInMotor(motorA1, motorA2);
     motorB = new InInMotor(motorB1, motorB2);
   }
@@ -46,8 +45,7 @@ public:
    * @param motorB2   the motor B input number 2
    * @param motorBPWM the motor B PWM input
    */
-  TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorAPWM, uint8_t motorB1, uint8_t motorB2, uint8_t motorBPWM)
-      : MotorDriver(motorA1, motorA2, motorB1, motorB2) {
+  TB67H420FTG(uint8_t motorA1, uint8_t motorA2, uint8_t motorAPWM, uint8_t motorB1, uint8_t motorB2, uint8_t motorBPWM) {
     motorA = new InInPWMMotor(motorA1, motorA2, motorAPWM);
     motorB = new InInPWMMotor(motorB1, motorB2, motorBPWM);
   }

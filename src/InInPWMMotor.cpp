@@ -5,12 +5,12 @@
 #include "InInPWMMotor.h"
 
 
-void InInPWMDriver::setCoastDrivePower(int8_t power) {
+void InInPWMMotor::setCoastDrivePower(int8_t power) {
   // Brake mode is not supported, call brake power
-  InInPWMDriver::setBrakeDrivePower(power);
+  InInPWMMotor::setBrakeDrivePower(power);
 }
 
-void InInPWMDriver::setBrakeDrivePower(int8_t power) {
+void InInPWMMotor::setBrakeDrivePower(int8_t power) {
   // Call the appropriate forward or reverse method
   if (power < 0) {
     // (REVERSE) Drive one high, one low and drive PWM
@@ -25,14 +25,14 @@ void InInPWMDriver::setBrakeDrivePower(int8_t power) {
   }
 }
 
-void InInPWMDriver::brake() {
+void InInPWMMotor::brake() {
   // Drive everything HIGH
   digitalWrite(_pin1, HIGH);
   digitalWrite(_pin2, HIGH);
   analogWrite(_motorPWM, _pwmResolution);
 }
 
-void InInPWMDriver::coast() {
+void InInPWMMotor::coast() {
   // Drive everything LOW
   digitalWrite(_pin1, LOW);
   digitalWrite(_pin2, LOW);

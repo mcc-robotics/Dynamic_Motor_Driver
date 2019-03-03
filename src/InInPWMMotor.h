@@ -8,10 +8,10 @@
 
 #include "Motor.h"
 
-class InInPWMDriver : public Motor {
+class InInPWMMotor : public Motor {
 
 public:
-  InInPWMDriver(uint8_t motPin1, uint8_t motPin2, uint8_t motPWM)
+    InInPWMMotor(uint8_t motPin1, uint8_t motPin2, uint8_t motPWM)
       : Motor(motPin1, motPin2) {
     _motorPWM = motPWM;
   }
