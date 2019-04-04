@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/gberl001/qtr-sensors-arduino.svg?branch=add-travis-ci)](https://travis-ci.org/gberl001/qtr-sensors-arduino)<br>
+
 # Dynamic Motor Driver Library
 
 This library provides functionality for two DC motor bidirectional movement and is abstracted in a way that your code can remain nearly exactly the same even if you want to change out your motor driver. The only thing you would need to change is the object you create. 
