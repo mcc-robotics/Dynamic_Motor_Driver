@@ -3,6 +3,5 @@
 CMakeListsPrivate.txt
 cmake-build-debug
 .idea/
-.travis.yml
 CMakeLists.txt
 platformio.ini
