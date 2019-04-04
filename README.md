@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/gberl001/qtr-sensors-arduino.svg?branch=add-travis-ci)](https://travis-ci.org/gberl001/qtr-sensors-arduino)<br>
+[![Build Status](https://travis-ci.org/mcc-robotics/Dynamic_Motor_Driver.svg?branch=add-travis-ci)](https://travis-ci.org/mcc-robotics/Dynamic_Motor_Driver)<br>
 
 # Dynamic Motor Driver Library
 
