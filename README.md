@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mcc-robotics/Dynamic_Motor_Driver.svg?branch=develop)](https://travis-ci.org/mcc-robotics/Dynamic_Motor_Driver)<br>
+[![Build Status](https://travis-ci.org/mcc-robotics/Dynamic_Motor_Driver.svg?branch=master)](https://travis-ci.org/mcc-robotics/Dynamic_Motor_Driver)<br>
 
 # Dynamic Motor Driver Library
 
